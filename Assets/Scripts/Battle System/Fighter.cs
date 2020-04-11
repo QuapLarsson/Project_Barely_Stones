@@ -17,14 +17,17 @@ public class Fighter : MonoBehaviour
     //Stat Block End
 
     //Equipment Block Start
-    Weapon myWeapon;
-    Armour myArmour;
+    public Weapon myWeapon;
+    public Armour myArmour;
     //Equipment Block End
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        myWeapon = new Weapon();
+        myArmour = new Armour();
+        myWeapon.MakeSword();
+        myArmour.MakeLeather();
     }
 
     // Update is called once per frame
