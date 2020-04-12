@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DamageType
+{
+    Slashing,
+    Blunt,
+    Piercing,
+    Magical
+}
+
 public class Weapon : MonoBehaviour
 {
-    public enum DamageType
-    {
-        Slashing,
-        Blunt,
-        Piercing,
-        Magical
-    }
-
     public string myName;
     public int myID;
     public int myReach;
