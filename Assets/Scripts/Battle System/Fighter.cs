@@ -10,7 +10,7 @@ public class Fighter : MonoBehaviour
     public int myPower = 0;
     public int myDefence = 0;
     public int myMovement = 0;
-    public int MyLuck = 0;
+    public int myLuck = 0;
     public int myMaxHP = 0;
     public int myCurrentHP = 0;
     public int myGuts = 0;

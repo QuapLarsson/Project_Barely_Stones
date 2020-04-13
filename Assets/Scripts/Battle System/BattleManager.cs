@@ -22,7 +22,7 @@ public class BattleManager : MonoBehaviour
         myFighter0 = aFighter0;
         myFighter1 = aFighter1;
 
-        //TODO: Shift camera and present battle scene
+        //TODO: Shift camera and present battle scene ???
 
         StartFight(myFighter0, myFighter1);
     }
@@ -31,7 +31,7 @@ public class BattleManager : MonoBehaviour
     void StartFight(Fighter aFighter0, Fighter aFighter1)
     {
         //myFighter0 hits opponent and switch active fighter
-        //myFighter1 hits opponent and switch active fighter
+        //myFighter1 hits opponent and switch active fighter ???
         //Reset scene to strategy mode
     }
 
