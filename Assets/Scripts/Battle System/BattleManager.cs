@@ -34,7 +34,7 @@ public class BattleManager : MonoBehaviour
     }
 
     //Start battle sequence. Kapow.
-    void StartFight(Fighter aFighter0, Fighter aFighter1)
+    void StartFight(Fighter aActiveFighter, Fighter aInactiveFighter)
     {
         float damageRate = 1f;
         int attackerTotalPower;
