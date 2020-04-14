@@ -15,6 +15,7 @@ public class Pathfinding
         List<Tile> unsearchedTiles = new List<Tile>();
         List<Tile> validTiles = new List<Tile>();
 
+        //TODO: Make this better
         for (int x = startTile.x - pathLength; x <= startTile.x + pathLength; x++)
         {
             if (x < 0 || x > currentTileGrid.tileArray.GetLength(0) - 1) continue;
@@ -30,6 +31,7 @@ public class Pathfinding
             }
         }
 
+        //TODO: Make this more efficient by not having to call FindPath for every tile, instead when already finding the that for another tile add other tiles that also are valid to move to.
         for (int i = 0; i < unsearchedTiles.Count; i++)
         {
             List<Tile> path = FindPath(startTile, unsearchedTiles[i]);
