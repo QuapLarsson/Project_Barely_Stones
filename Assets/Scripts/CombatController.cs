@@ -33,6 +33,7 @@ public class CombatController : MonoBehaviour
     void Start()
     {
         tileGrid = new TileGrid(12, 12, 1f, new Vector3(-6, 0, -6));
+        pathfinding = new Pathfinding(tileGrid);
         NextTurn();
 
         foreach (Enemy enemy in enemies)
@@ -95,22 +96,26 @@ public class CombatController : MonoBehaviour
 
                         selectedUnit = unitHit;
                         selectedUnit.GetComponent<Renderer>().material = unitHighlightMat;
+                        selectedUnit.HighlightWalkableTiles(pathfinding, tileGrid);
                     }
 
                     else if (Input.GetMouseButtonDown(1) && selectedUnit != null)
                     {
                         Tile tile = tileGrid.GetTileAt(rayHit.point);
 
-                        if (tile.isWalkable)
+                        foreach (Tile walkableTile in selectedUnit.walkableTiles)
                         {
-                            for (int i = 0; i < unitsToMove.Length; i++)
+                            if (tile == walkableTile)
                             {
-                                if (selectedUnit == unitsToMove[i])
+                                for (int i = 0; i < unitsToMove.Length; i++)
                                 {
-                                    unitsToMove[i] = null;
+                                    if (selectedUnit == unitsToMove[i])
+                                    {
+                                        unitsToMove[i] = null;
 
-                                    Vector3 moveablePosition = tileGrid.GetCenterPointOfTile(tile);
-                                    selectedUnit.MoveTo(moveablePosition, tileGrid);
+                                        Vector3 moveablePosition = tileGrid.GetCenterPointOfTile(tile);
+                                        selectedUnit.MoveTo(moveablePosition, tileGrid);
+                                    }
                                 }
                             }
                         }
