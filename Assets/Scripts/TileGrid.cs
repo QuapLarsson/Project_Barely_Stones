@@ -73,7 +73,7 @@ public class TileGrid
 
     public Vector3 GetCenterPointOfTile(Tile tile)
     {
-        //TODO: Check IsTileWalkable's TODO
+        //TODO: Check IsTileWalkable's TODO (further down)
         Vector3 tileCenter = GetWorldPosition(tile.x, tile.y) + new Vector3(tileSize / 2, 100, tileSize / 2);
 
         RaycastHit rayHit;
