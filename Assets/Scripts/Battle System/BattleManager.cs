@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    public Fighter myFighter0;
-    public Fighter myFighter1;
+    public Fighter myActiveFighter;
+    public Fighter myInactiveFighter;
+    public GameObject myButton;
+    bool myIsAnimating = false;
+    float myAnimationTimer = 2f;
 
     //TODO: Abilities
     //TODO: Critical Hit
@@ -21,20 +24,28 @@ public class BattleManager : MonoBehaviour
     }
 
     //Take in two fighters and start the battle. Entry point for battles.
-    public void Init(Fighter aFighter0, Fighter aFighter1)
+    public void Init(Fighter aActiveFighter, Fighter aInactiveFighter)
     {
-        myFighter0 = aFighter0;
-        myFighter1 = aFighter1;
+        myActiveFighter = aActiveFighter;
+        myInactiveFighter = aInactiveFighter;
 
         //TODO: Shift camera and present battle scene ???
 
-        StartFight(myFighter0, myFighter1);
+        DealDamage(myActiveFighter, myInactiveFighter);
 
         //Reset scene to strategy mode
     }
 
+    public void OnClick()
+    {
+        if (myIsAnimating == false)
+        {
+            Init(myActiveFighter, myInactiveFighter);
+        }
+    }
+
     //Start battle sequence. Kapow.
-    void StartFight(Fighter aActiveFighter, Fighter aInactiveFighter)
+    void DealDamage(Fighter aActiveFighter, Fighter aInactiveFighter)
     {
         float damageRate = 1f;
         int attackerTotalPower;
@@ -126,12 +137,27 @@ public class BattleManager : MonoBehaviour
 
         float damageDealt = attackerTotalPower * damageRate;
 
-        //aFigher0 deals damage to aFighter1
+        aActiveFighter.transform.Translate(new Vector3(-0.3f, 0, 0));
+        myIsAnimating = true;
+        if (aInactiveFighter.TakeDamage((int)damageDealt))
+        {
+            aInactiveFighter.Die();
+            //Destroy(aInactiveFighter.gameObject);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (myIsAnimating == true)
+        {
+            myAnimationTimer -= Time.deltaTime;
+            if (myAnimationTimer <= 0f)
+            {
+                myIsAnimating = false;
+                myAnimationTimer = 2f;
+                myActiveFighter.gameObject.transform.Translate(new Vector3(0.3f, 0, 0));
+            }
+        }
     }
 }

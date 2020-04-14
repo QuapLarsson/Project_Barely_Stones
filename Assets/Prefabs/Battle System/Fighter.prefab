@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3243932724190715316}
   - component: {fileID: 3243932724190715317}
   m_Layer: 0
-  m_Name: Figher_1
+  m_Name: Fighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: bd15d9defea6b684eb6f885f41398813, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   myPower: 5
   myDefence: 5
   myMovement: 5
-  MyLuck: 5
+  myLuck: 0
   myMaxHP: 10
   myCurrentHP: 10
   myGuts: 0
@@ -213,5 +213,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: 
   myID: 0
-  myDefenceBonus: 0
+  myDefence: 0
   myArmourType: 0

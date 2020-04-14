@@ -21,6 +21,9 @@ public class Fighter : MonoBehaviour
     public Armour myArmour;
     //Equipment Block End
 
+    float myAnimationTime = 2f;
+    public Renderer myRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +31,50 @@ public class Fighter : MonoBehaviour
         myArmour.MakeLeather();
     }
 
+    public bool TakeDamage(int aAmount)
+    {
+        myCurrentHP -= aAmount;
+        Debug.Log("Oof, " + aAmount + " damage");
+        if (myCurrentHP <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void Die()
+    {
+        StartCoroutine(DeathFade());
+    }
+
+    IEnumerator DeathFade()
+    {
+        float counter = 0f;
+        //Get current color
+
+        while (counter < myAnimationTime)
+        { 
+            Color matColor = myRenderer.material.GetColor("_BaseColor");
+            counter += Time.deltaTime;
+            //Fade from 255 to 0
+            int alpha = (int)Mathf.Lerp(3, 0, counter / myAnimationTime);
+            Debug.Log(alpha);
+            //Change alpha only
+            matColor.a = alpha;
+            myRenderer.material.SetColor("_BaseColor", matColor);// = matColor;
+            //Debug.Log(myRenderer.material.color.a);
+            //myRenderer.material.color = new Color(matColor.r, matColor.g, matColor.b, alpha);
+            //Wait for a frame
+            yield return null;
+        }
+        //Destroy(gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
