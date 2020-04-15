@@ -21,7 +21,7 @@ public class Fighter : MonoBehaviour
     public Armour myArmour;
     //Equipment Block End
 
-    float myAnimationTime = 2f;
+    float myAnimationTime = 1f;
     public Renderer myRenderer;
 
     // Start is called before the first frame update
@@ -57,20 +57,20 @@ public class Fighter : MonoBehaviour
 
         while (counter < myAnimationTime)
         { 
-            Color matColor = myRenderer.material.GetColor("_BaseColor");
+            //Color matColor = myRenderer.material.GetColor("_BaseColor");
             counter += Time.deltaTime;
             //Fade from 255 to 0
-            int alpha = (int)Mathf.Lerp(3, 0, counter / myAnimationTime);
-            Debug.Log(alpha);
+            //int alpha = (int)Mathf.Lerp(3, 0, counter / myAnimationTime);
+            //Debug.Log(alpha);
             //Change alpha only
-            matColor.a = alpha;
-            myRenderer.material.SetColor("_BaseColor", matColor);// = matColor;
+            //matColor.a = alpha;
+            //myRenderer.material.SetColor("_BaseColor", matColor);// = matColor;
             //Debug.Log(myRenderer.material.color.a);
             //myRenderer.material.color = new Color(matColor.r, matColor.g, matColor.b, alpha);
             //Wait for a frame
             yield return null;
         }
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     // Update is called once per frame
