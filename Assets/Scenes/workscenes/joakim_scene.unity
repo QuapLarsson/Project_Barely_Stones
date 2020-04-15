@@ -896,6 +896,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraController
       objectReference: {fileID: 0}
+    - target: {fileID: 7683353579453115174, guid: 31750ec68965fa84b94e100c66465549,
+        type: 3}
+      propertyPath: highestPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683353579453115174, guid: 31750ec68965fa84b94e100c66465549,
+        type: 3}
+      propertyPath: lowestPosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 7683353579453115175, guid: 31750ec68965fa84b94e100c66465549,
         type: 3}
       propertyPath: m_LocalPosition.x

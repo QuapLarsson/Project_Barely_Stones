@@ -232,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad573422db9f18429eac34244f4f8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highestPosition: {x: 0, y: 10, z: -10}
-  lowestPosition: {x: 0, y: 0.5, z: -0.5}
+  highestPosition: {x: 0, y: 10, z: -2}
+  lowestPosition: {x: 0, y: 0.5, z: -1}
   maxAngle: 80
   minAngle: 0
   speedToFokus: 0.1
