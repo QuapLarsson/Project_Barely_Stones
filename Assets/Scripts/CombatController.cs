@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 public class CombatController : MonoBehaviour
 {
     TileGrid tileGrid;
+    [SerializeField] int gridWidth;
+    [SerializeField] int gridHeight;
+    [SerializeField] float tileSize;
+    [SerializeField] Vector3 gridOrigin;
     Pathfinding pathfinding;
     PlayableCharacter selectedUnit;
 
@@ -18,21 +22,30 @@ public class CombatController : MonoBehaviour
 
     //TEMP: Materials for highlighting which unit is selected TODO: Not use material as a highlight for selectedUnit
     Material unitMat;
-    public Material unitHighlightMat;
+    [SerializeField] Material unitHighlightMat;
     Material enemyMat;
-    public Material enemyHighlightMat;
+    [SerializeField] Material enemyHighlightMat;
+
+    [SerializeField] GameObject tileHighlighter;
+    Material tileHighlightMat;
+    [SerializeField] Material tileHighlightMoveMat;
+
+    Ray mouseRay;
+    RaycastHit rayHit;
 
     void Awake()
     {
         //TEMP: Find the original material for a PlayableCharacter
         unitMat = FindObjectOfType<PlayableCharacter>().gameObject.GetComponent<Renderer>().material;
         enemyMat = FindObjectOfType<Enemy>().gameObject.GetComponent<Renderer>().material;
+        tileHighlightMat = tileHighlighter.GetComponent<Renderer>().material;
         enemies = FindObjectsOfType<Enemy>();
     }
 
     void Start()
     {
-        tileGrid = new TileGrid(12, 12, 1f, new Vector3(-6, 0, -6));
+        tileGrid = new TileGrid(gridWidth, gridHeight, tileSize, gridOrigin);
+        pathfinding = new Pathfinding(tileGrid);
         NextTurn();
 
         foreach (Enemy enemy in enemies)
@@ -48,72 +61,129 @@ public class CombatController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
-        {
-            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit rayHit;
+        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        if (Physics.Raycast(mouseRay, out rayHit, float.PositiveInfinity) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            Tile tile = tileGrid.GetTileAt(rayHit.point);
+            Vector3 tilePosition = tileGrid.GetCenterPointOfTile(tile);
+            tileHighlighter.transform.position = new Vector3(tilePosition.x, 0.75f, tilePosition.z);
+
+            if (selectedUnit != null)
+            {
+                tileHighlighter.SetActive(false);
+
+                foreach(Tile walkableTile in selectedUnit.walkableTiles)
+                {
+                    if (tile == walkableTile)
+                    {
+                        tileHighlighter.SetActive(true);
+                        tileHighlighter.GetComponent<Renderer>().material = tileHighlightMoveMat;
+                    }
+                }
+            }
+
+            else
+            {
+                tileHighlighter.GetComponent<Renderer>().material = tileHighlightMat;
+            }
+        }
+
+        if (isAttacking)
+        {
+            ClickToAttackEnemy();
+        }
+
+        else
+        {
+            ClickToSelectUnit();
+            ClickToMoveUnit();
+        }
+    }
+
+    void ClickToSelectUnit()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
             if (Physics.Raycast(mouseRay, out rayHit, float.PositiveInfinity) && !EventSystem.current.IsPointerOverGameObject())
             {
-                if (isAttacking)
+                if (rayHit.collider.GetComponent<PlayableCharacter>() != null)
                 {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        Tile tile = tileGrid.GetTileAt(rayHit.point);
+                    PlayableCharacter unitHit = rayHit.collider.GetComponent<PlayableCharacter>();
 
-                        if (selectedUnit != null)
+                    foreach (PlayableCharacter character in unitsToMove)
+                    {
+                        if (character == unitHit)
                         {
-                            for (int i = 0; i < enemies.Length; i++)
+                            //TEMP: Changes the material of the selectedUnit and changes back the material of the previous selectedUnit
+                            if (selectedUnit != null)
                             {
-                                if (tileGrid.GetTileAt(enemies[i].transform.position) == tile)
-                                {
-                                    Debug.Log(string.Format("Attacked {0}", enemies[i].name));
-                                }
+                                selectedUnit.GetComponent<Renderer>().material = unitMat;
                             }
 
-                            isAttacking = false;
+                            selectedUnit = unitHit;
+                            selectedUnit.GetComponent<Renderer>().material = unitHighlightMat;
+                            selectedUnit.HighlightWalkableTiles(pathfinding, tileGrid);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-                            foreach (Enemy enemy in enemies)
+    void ClickToMoveUnit()
+    {
+        if (Input.GetMouseButtonDown(1) && selectedUnit != null)
+        {
+            if (Physics.Raycast(mouseRay, out rayHit, float.PositiveInfinity) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                Tile tile = tileGrid.GetTileAt(rayHit.point);
+
+                foreach (Tile walkableTile in selectedUnit.walkableTiles)
+                {
+                    if (tile == walkableTile)
+                    {
+                        for (int i = 0; i < unitsToMove.Length; i++)
+                        {
+                            if (selectedUnit == unitsToMove[i])
                             {
-                                enemy.GetComponent<Renderer>().material = enemyMat;
+                                Vector3 moveablePosition = tileGrid.GetCenterPointOfTile(tile);
+                                selectedUnit.MoveTo(moveablePosition, tileGrid);
+
+                                unitsToMove[i] = null;
+                                selectedUnit.GetComponent<Renderer>().material = unitMat;
+                                selectedUnit = null;
                             }
                         }
                     }
                 }
+            }
+        }
+    }
 
-                else
+    void ClickToAttackEnemy()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Physics.Raycast(mouseRay, out rayHit, float.PositiveInfinity) && !EventSystem.current.IsPointerOverGameObject())
+            {
+                Tile tile = tileGrid.GetTileAt(rayHit.point);
+
+                if (selectedUnit != null)
                 {
-                    if (Input.GetMouseButtonDown(0) && rayHit.collider.GetComponent<PlayableCharacter>() != null)
+                    for (int i = 0; i < enemies.Length; i++)
                     {
-                        PlayableCharacter unitHit = rayHit.collider.GetComponent<PlayableCharacter>();
-
-                        //TEMP: Change the material of the selectedUnit and change back the material of the previous selectedUnit
-                        if (selectedUnit != null)
+                        if (tileGrid.GetTileAt(enemies[i].transform.position) == tile)
                         {
-                            selectedUnit.GetComponent<Renderer>().material = unitMat;
+                            Debug.Log(string.Format("Attacked {0}", enemies[i].name));
                         }
-
-                        selectedUnit = unitHit;
-                        selectedUnit.GetComponent<Renderer>().material = unitHighlightMat;
                     }
 
-                    else if (Input.GetMouseButtonDown(1) && selectedUnit != null)
+                    isAttacking = false;
+
+                    foreach (Enemy enemy in enemies)
                     {
-                        Tile tile = tileGrid.GetTileAt(rayHit.point);
-
-                        if (tile.isWalkable)
-                        {
-                            for (int i = 0; i < unitsToMove.Length; i++)
-                            {
-                                if (selectedUnit == unitsToMove[i])
-                                {
-                                    unitsToMove[i] = null;
-
-                                    Vector3 moveablePosition = tileGrid.GetCenterPointOfTile(tile);
-                                    selectedUnit.MoveTo(moveablePosition, tileGrid);
-                                }
-                            }
-                        }
+                        enemy.GetComponent<Renderer>().material = enemyMat;
                     }
                 }
             }
@@ -134,8 +204,13 @@ public class CombatController : MonoBehaviour
         FindObjectOfType<CombatUI>().UpdateText(turnCount);
     }
 
-    public void Attack()
+    public void SearchForEmemies()
     {
+        if (selectedUnit == null)
+        {
+            return;
+        }
+
         enemyTiles = new List<Tile>();
 
         Tile[] adjacentTiles = tileGrid.GetAdjacentTiles(tileGrid.GetTileAt(selectedUnit.transform.position));

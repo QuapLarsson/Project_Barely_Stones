@@ -10,6 +10,41 @@ public class Pathfinding
         currentTileGrid = tileGrid;
     }
 
+    public List<Tile> FindAllPaths(Tile startTile, int pathLength)
+    {
+        List<Tile> unsearchedTiles = new List<Tile>();
+        List<Tile> validTiles = new List<Tile>();
+
+        //TODO: Make this better
+        for (int x = startTile.x - pathLength; x <= startTile.x + pathLength; x++)
+        {
+            if (x < 0 || x > currentTileGrid.tileArray.GetLength(0) - 1) continue;
+
+            for (int y = startTile.y - pathLength; y <= startTile.y + pathLength; y++)
+            {
+                if (y < 0 || y > currentTileGrid.tileArray.GetLength(1) - 1) continue;
+
+                if (currentTileGrid.tileArray[x, y] != startTile && currentTileGrid.tileArray[x, y].isWalkable)
+                {
+                    unsearchedTiles.Add(currentTileGrid.tileArray[x, y]);
+                }
+            }
+        }
+
+        //TODO: Make this more efficient by not having to call FindPath for every tile, instead when already finding the that for another tile add other tiles that also are valid to move to.
+        for (int i = 0; i < unsearchedTiles.Count; i++)
+        {
+            List<Tile> path = FindPath(startTile, unsearchedTiles[i]);
+
+            if (path.Count <= pathLength)
+            {
+                validTiles.Add(unsearchedTiles[i]);
+            }
+        }
+
+        return validTiles;
+    }
+
     public List<Tile> FindPath(Tile startTile, Tile goalTile)
     {
         List<Tile> openList = new List<Tile>();
