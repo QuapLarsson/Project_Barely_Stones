@@ -8,4 +8,5 @@ public class Dialogue
     public string name;
     [TextArea(5, 5)]
     public string[] textBatches;
+    public DialogueManager.TextSpeeds textSpeed;
 }
