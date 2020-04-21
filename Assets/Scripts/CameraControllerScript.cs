@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraControllerScript : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class CameraControllerScript : MonoBehaviour
     public bool DetectDoubleClick()//Måste köras varje frame för att den ska kunna upptäcka dubbelklick
     {
         bool returnbool = false;
-        if (Input.GetMouseButtonDown(0))//om klick
+        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())//om klick
         {
             if (lastClick == 0)
                 lastClick = Time.time;
@@ -70,7 +71,7 @@ public class CameraControllerScript : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButton(2))
+        if (Input.GetMouseButton(2) && !EventSystem.current.IsPointerOverGameObject())
         {
             ClearFokus();
 
