@@ -27,8 +27,8 @@ public class CombatController : MonoBehaviour
     [SerializeField] Material enemyHighlightMat;
 
     [SerializeField] GameObject tileHighlighter;
-    Material tileHighlightMat;
-    [SerializeField] Material tileHighlightMoveMat;
+    [SerializeField] GameObject moveableTileHighlighter;
+    List<GameObject> moveableTileHighlighters = new List<GameObject>();
 
     Ray mouseRay;
     RaycastHit rayHit;
@@ -38,7 +38,6 @@ public class CombatController : MonoBehaviour
         //TEMP: Find the original material for a PlayableCharacter
         unitMat = FindObjectOfType<PlayableCharacter>().gameObject.GetComponent<Renderer>().material;
         enemyMat = FindObjectOfType<Enemy>().gameObject.GetComponent<Renderer>().material;
-        tileHighlightMat = tileHighlighter.GetComponent<Renderer>().material;
         enemies = FindObjectsOfType<Enemy>();
     }
 
@@ -68,25 +67,6 @@ public class CombatController : MonoBehaviour
             Tile tile = tileGrid.GetTileAt(rayHit.point);
             Vector3 tilePosition = tileGrid.GetCenterPointOfTile(tile);
             tileHighlighter.transform.position = new Vector3(tilePosition.x, 0.75f, tilePosition.z);
-
-            if (selectedUnit != null)
-            {
-                tileHighlighter.SetActive(false);
-
-                foreach(Tile walkableTile in selectedUnit.walkableTiles)
-                {
-                    if (tile == walkableTile)
-                    {
-                        tileHighlighter.SetActive(true);
-                        tileHighlighter.GetComponent<Renderer>().material = tileHighlightMoveMat;
-                    }
-                }
-            }
-
-            else
-            {
-                tileHighlighter.GetComponent<Renderer>().material = tileHighlightMat;
-            }
         }
 
         if (isAttacking)
@@ -123,7 +103,8 @@ public class CombatController : MonoBehaviour
 
                             selectedUnit = unitHit;
                             selectedUnit.GetComponent<Renderer>().material = unitHighlightMat;
-                            selectedUnit.HighlightWalkableTiles(pathfinding, tileGrid);
+                            selectedUnit.CalculateWalkableTiles(pathfinding, tileGrid);
+                            HighlightMoveableTiles(selectedUnit.walkableTiles);
                         }
                     }
                 }
@@ -153,6 +134,7 @@ public class CombatController : MonoBehaviour
                                 unitsToMove[i] = null;
                                 selectedUnit.GetComponent<Renderer>().material = unitMat;
                                 selectedUnit = null;
+                                HideMoveableTiles();
                             }
                         }
                     }
@@ -190,6 +172,36 @@ public class CombatController : MonoBehaviour
         }
     }
 
+    void HighlightMoveableTiles(List<Tile> moveableTiles)
+    {
+        HideMoveableTiles();
+
+        for (int i = 0; i < moveableTiles.Count; i++)
+        {
+            Vector3 tilePosition = tileGrid.GetCenterPointOfTile(moveableTiles[i]);
+            Vector3 highlightPosition = new Vector3(tilePosition.x, 0.5f, tilePosition.z);
+
+            if (i < moveableTileHighlighters.Count)
+            {
+                moveableTileHighlighters[i].transform.position = highlightPosition;
+                moveableTileHighlighters[i].SetActive(true);
+            }
+
+            else
+            {
+                moveableTileHighlighters.Add(Instantiate(moveableTileHighlighter, highlightPosition, Quaternion.identity));
+            }
+        }
+    }
+
+    void HideMoveableTiles()
+    {
+        for (int i = 0; i < moveableTileHighlighters.Count; i++)
+        {
+            moveableTileHighlighters[i].SetActive(false);
+        }
+    }
+
     public void NextTurn()
     {
         unitsToMove = FindObjectsOfType<PlayableCharacter>();
@@ -202,6 +214,7 @@ public class CombatController : MonoBehaviour
         selectedUnit = null;
         turnCount++;
         FindObjectOfType<CombatUI>().UpdateText(turnCount);
+        HideMoveableTiles();
     }
 
     public void SearchForEmemies()
