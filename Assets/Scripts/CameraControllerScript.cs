@@ -23,6 +23,9 @@ public class CameraControllerScript : MonoBehaviour
 
     private float cameraRailPosition = .5f;//is between 1f and 0f used to calculate angle and position of cameratransform
 
+    private float lastClick = 0;
+    private float doubleClickTimeLimit = 0.3f;//tid under vilken man måste klicka 2 gånger för att dubbelklick ska registreras, i sekunder.
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +43,27 @@ public class CameraControllerScript : MonoBehaviour
     public void SetFokus(Transform transform)
     {
         ExternalFokus = transform;
+    }
+
+    public bool DetectDoubleClick()//Måste köras varje frame för att den ska kunna upptäcka dubbelklick
+    {
+        bool returnbool = false;
+        if (Input.GetMouseButtonDown(0))//om klick
+        {
+            if (lastClick == 0)
+                lastClick = Time.time;
+            else
+            {
+                if ((Time.time - lastClick) < doubleClickTimeLimit)
+                {
+                    returnbool = true;
+                }
+            }
+
+            lastClick = Time.time;
+        }
+
+        return returnbool;
     }
 
     // Update is called once per frame
@@ -61,7 +85,7 @@ public class CameraControllerScript : MonoBehaviour
             transform.position = currentPosition;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (DetectDoubleClick())
         {
 
             RaycastHit rcHit;
