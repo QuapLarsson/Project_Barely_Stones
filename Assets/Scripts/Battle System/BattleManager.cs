@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
     public Fighter myActiveFighter;
     public Fighter myInactiveFighter;
-    public GameObject myButton;
     bool myIsAnimating = false;
     float myAnimationTimer = 2f;
+
+    //UI Start
+    public GameObject myStartFightButton;
+    public Slider myActiveFighterHPBar;
+    public Slider myInactiveFighterHPBar;
+    //UI End
 
     //TODO: Abilities
     //TODO: Critical Hit
@@ -20,7 +26,18 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (myInactiveFighter != null)
+        {
+            myInactiveFighterHPBar.maxValue = myInactiveFighter.myMaxHP;
+            myInactiveFighterHPBar.value = myInactiveFighter.myCurrentHP;
+            myInactiveFighterHPBar.minValue = 0;
+        }
+        if (myActiveFighter != null)
+        {
+            myActiveFighterHPBar.maxValue = myActiveFighter.myMaxHP;
+            myActiveFighterHPBar.value = myActiveFighter.myCurrentHP;
+            myActiveFighterHPBar.minValue = 0;
+        }
     }
 
     //Take in two fighters and start the battle. Entry point for battles.
@@ -139,10 +156,10 @@ public class BattleManager : MonoBehaviour
 
         aActiveFighter.transform.Translate(new Vector3(-0.3f, 0, 0));
         myIsAnimating = true;
+        StartCoroutine(InactiveFighterHPBarDepletion(aInactiveFighter.myCurrentHP - damageDealt));
         if (aInactiveFighter.TakeDamage((int)damageDealt))
         {
             aInactiveFighter.Die();
-            //Destroy(aInactiveFighter.gameObject);
         }
     }
 
@@ -158,6 +175,23 @@ public class BattleManager : MonoBehaviour
                 myAnimationTimer = 2f;
                 myActiveFighter.gameObject.transform.Translate(new Vector3(0.3f, 0, 0));
             }
+        }
+    }
+
+    IEnumerator InactiveFighterHPBarDepletion(float aTargetVal)
+    {
+        while (myInactiveFighterHPBar.value > aTargetVal)
+        {
+            if (myInactiveFighterHPBar.value - aTargetVal < 0.1f)
+            {
+                myInactiveFighterHPBar.value = aTargetVal;
+            }
+            else
+            {
+                myInactiveFighterHPBar.value -= 0.1f;
+            }
+            Debug.Log(myInactiveFighterHPBar.value + ", " + aTargetVal);
+            yield return null;
         }
     }
 }
