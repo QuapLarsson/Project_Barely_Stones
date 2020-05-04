@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class DialogueManager : MonoBehaviour
     public GameObject yesNoBox;
     public TMP_Text optionOneText;
     public TMP_Text optionTwoText;
+    public GameObject nextButton;
+    public TMP_Text nextButtonText;
 
     public Animator boxAnimator;
     public AudioSource audioSource;
@@ -65,9 +68,18 @@ public class DialogueManager : MonoBehaviour
         leftName.SetActive(false);
         rightName.SetActive(false);
         yesNoBox.SetActive(false);
+        nextButton.SetActive(false);
         dialogueText.alpha = 0;
+        
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+        {
+            DisplayNextTextBatch();
+        }
+    }
     void Start()
     {
         textBatches = new Queue<string>();
@@ -107,10 +119,11 @@ public class DialogueManager : MonoBehaviour
     /// Adds all text batches from dialogue to queue.
     /// </summary>
     /// <param name="dialogue"></param>
-    public void StartDialogue(Dialogue[] dialogueTree/*Dialogue dialogue, Dialogue _secondary, bool _secondaryTrue*/)
+    public void StartDialogue(Dialogue[] dialogueTree)
     {
         
-        if (!boxAnimator.GetBool("isOpen"))
+        if (!boxAnimator.GetBool("isOpen") && !MenuManager.instance.gamePaused
+            && !SaveMenu.instance.animator.GetBool("isOpen"))
         {
             foreach (Dialogue dialogue in dialogueTree)
             {
@@ -165,6 +178,14 @@ public class DialogueManager : MonoBehaviour
                 {
                     NextDialogue();
                     return;
+                }
+                else if (textBatches.Count == 1 && dialogueQueue.Count == 0)
+                {
+                    nextButtonText.SetText("End");
+                }
+                else
+                {
+                    nextButtonText.SetText("Next");
                 }
 
                 batch = textBatches.Dequeue();
