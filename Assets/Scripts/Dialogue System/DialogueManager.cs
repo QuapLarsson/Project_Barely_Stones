@@ -9,20 +9,32 @@ public class DialogueManager : MonoBehaviour
 {
     [Header("Setup")]
     public GameObject DialogueCanvas;
-    public TMP_Text nameText;
+    public TMP_Text nameTextLeft;
+    public GameObject leftName;
+    public TMP_Text nameTextRight;
+    public GameObject rightName;
     public TMP_Text dialogueText;
+    public GameObject yesNoBox;
+    public TMP_Text optionOneText;
+    public TMP_Text optionTwoText;
+
     public Animator boxAnimator;
     public AudioSource audioSource;
     //[Range(1, 5)]
     //public int textSpeedSetting=1;
     public TextSpeeds currentTextSpeed;
     [HideInInspector]
+    private Dialogue newDialogue;
     private Queue<string> textBatches;
+    private Queue<Dialogue> dialogueQueue;
     private List<char> charsToHoldAt = new List<char> { '.','!','?'};
     public static DialogueManager instance;
 
     private float textSpeed;
     private bool isTyping;
+    private bool leftNameOn;
+    private bool rightNameOn;
+    private bool continueToNextDialogue;
     private string batch;
     public enum TextSpeeds
     {
@@ -48,14 +60,18 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("DialogueManager instance already exists.");
         }
-        nameText.alpha = 0;
+        //nameTextLeft.alpha = 0;
+        //nameTextRight.alpha = 0;
+        leftName.SetActive(false);
+        rightName.SetActive(false);
+        yesNoBox.SetActive(false);
         dialogueText.alpha = 0;
     }
 
     void Start()
     {
         textBatches = new Queue<string>();
-
+        dialogueQueue = new Queue<Dialogue>();
     }
 
     public void ChangeTextSpeed(TextSpeeds speed)
@@ -91,19 +107,36 @@ public class DialogueManager : MonoBehaviour
     /// Adds all text batches from dialogue to queue.
     /// </summary>
     /// <param name="dialogue"></param>
-    public void StartDialogue(Dialogue dialogue,float _pitch)
+    public void StartDialogue(Dialogue[] dialogueTree/*Dialogue dialogue, Dialogue _secondary, bool _secondaryTrue*/)
     {
+        
         if (!boxAnimator.GetBool("isOpen"))
         {
-            audioSource.pitch = _pitch;
-            boxAnimator.SetTrigger("OpenStart");
-            nameText.text = dialogue.name;
+            foreach (Dialogue dialogue in dialogueTree)
+            {
+                boxAnimator.SetTrigger("OpenStart");
+                dialogueQueue.Enqueue(dialogue);
+
+
+            }
+
+            newDialogue = dialogueQueue.Dequeue();
+
+            audioSource.pitch = newDialogue.pitch;
+            //boxAnimator.SetTrigger("OpenStart");
+            nameTextLeft.text = newDialogue.leftName;
+            nameTextRight.text = newDialogue.rightName;
+            leftNameOn = newDialogue.leftNameOn;
+            rightNameOn = newDialogue.rightNameOn;
             textBatches.Clear();
-            ChangeTextSpeed(dialogue.textSpeed);
-            foreach (string textBatch in dialogue.textBatches)
+            ChangeTextSpeed(newDialogue.textSpeed);
+
+            foreach (string textBatch in newDialogue.textBatches)
             {
                 textBatches.Enqueue(textBatch);
             }
+
+            
         }
     }
     /// <summary>
@@ -117,7 +150,8 @@ public class DialogueManager : MonoBehaviour
     {
         if (boxAnimator.GetBool("isOpen"))
         {
-            nameText.alpha = 255;
+            CheckNames();
+            
             dialogueText.alpha = 255;
             if (isTyping)
             {
@@ -129,7 +163,7 @@ public class DialogueManager : MonoBehaviour
             {
                 if (textBatches.Count == 0)
                 {
-                    EndDialogue();
+                    NextDialogue();
                     return;
                 }
 
@@ -137,6 +171,55 @@ public class DialogueManager : MonoBehaviour
                 StartCoroutine(TypingEffect(batch));
             }
         }
+    }
+    /// <summary>
+    /// Handles whether or not the left, right, both, or neither name boxes should be used.
+    /// Based on info from Dialogue.
+    /// </summary>
+    private void CheckNames()
+    {
+        if (rightNameOn)
+        {
+            rightName.SetActive(true);
+        }
+        else
+        {
+            rightName.SetActive(false);
+        }
+
+        if (leftNameOn)
+        {
+            leftName.SetActive(true);
+        }
+        else
+        {
+            leftName.SetActive(false);
+        }
+    }
+
+    public void NextDialogue()
+    {
+        if (dialogueQueue.Count == 0)
+        {
+            EndDialogue();
+            return;
+        }
+
+        newDialogue = dialogueQueue.Dequeue();
+
+        audioSource.pitch = newDialogue.pitch;
+        nameTextLeft.text = newDialogue.leftName;
+        nameTextRight.text = newDialogue.rightName;
+        leftNameOn = newDialogue.leftNameOn;
+        rightNameOn = newDialogue.rightNameOn;
+        textBatches.Clear();
+        ChangeTextSpeed(newDialogue.textSpeed);
+
+        foreach (string textBatch in newDialogue.textBatches)
+        {
+            textBatches.Enqueue(textBatch);
+        }
+        DisplayNextTextBatch();
     }
     /// <summary>
     /// Goes through each char in text batch and types them out with a delay.
@@ -177,8 +260,26 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     public void EndDialogue()
     {
-        nameText.alpha = 0;
+        leftName.SetActive(false);
+        rightName.SetActive(false);
         dialogueText.alpha = 0;
         boxAnimator.SetTrigger("CloseStart");
     }
+
+    
+    //public void NewDialogue()
+    //{
+    //    audioSource.pitch = secondaryDialogue.pitch;
+    //    nameTextLeft.text = secondaryDialogue.leftName;
+    //    nameTextRight.text = secondaryDialogue.rightName;
+    //    leftNameOn = secondaryDialogue.leftNameOn;
+    //    rightNameOn = secondaryDialogue.rightNameOn;
+    //    textBatches.Clear();
+    //    ChangeTextSpeed(secondaryDialogue.textSpeed);
+    //    foreach (string textBatch in secondaryDialogue.textBatches)
+    //    {
+    //        textBatches.Enqueue(textBatch);
+    //    }
+    //    DisplayNextTextBatch();
+    //}
 }

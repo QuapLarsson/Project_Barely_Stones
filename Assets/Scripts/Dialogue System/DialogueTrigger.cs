@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    public Dialogue dialogue;
-    [Range(-3f, 3f)]
-    public float pitch = 1f;
+    //public Dialogue dialogue;
+    public DialogueTree dialogueTree;
     public void TriggerDialogue()
     {
-        DialogueManager.instance.StartDialogue(dialogue, pitch);
+        DialogueManager.instance.StartDialogue(dialogueTree.dialogues/*, secondaryDialogue, hasSecondaryDialogue*/);
     }
 }
