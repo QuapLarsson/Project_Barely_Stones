@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class BattleManager : MonoBehaviour
     public Fighter myInactiveFighter;
     bool myIsAnimating = false;
     float myAnimationTimer = 2f;
+    public Camera myMainCamera;
+    public Camera myCombatCamera;
 
     //UI Start
     public GameObject myStartFightButton;
@@ -51,10 +54,16 @@ public class BattleManager : MonoBehaviour
         DealDamage(myActiveFighter, myInactiveFighter);
 
         //Reset scene to strategy mode
+        return;
     }
 
     public void OnClick()
     {
+        if (myInactiveFighter == null)
+        {
+            myCombatCamera.enabled = false;
+            myMainCamera.enabled = true;
+        }
         if (myIsAnimating == false)
         {
             Init(myActiveFighter, myInactiveFighter);
@@ -161,6 +170,7 @@ public class BattleManager : MonoBehaviour
         {
             aInactiveFighter.Die();
         }
+        return;
     }
 
     // Update is called once per frame
@@ -192,6 +202,11 @@ public class BattleManager : MonoBehaviour
             }
             Debug.Log(myInactiveFighterHPBar.value + ", " + aTargetVal);
             yield return null;
+        }
+
+        if (myInactiveFighterHPBar.value <= 0)
+        {
+            Destroy(myInactiveFighterHPBar.transform.GetChild(1).GetChild(0).gameObject);
         }
     }
 }

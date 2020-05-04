@@ -8,6 +8,7 @@ TagManager:
   - enemyCharacter
   - gameCharacter
   - UI
+  - combatCamera
   layers:
   - Default
   - TransparentFX
