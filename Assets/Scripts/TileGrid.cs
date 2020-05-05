@@ -43,6 +43,11 @@ public class TileGrid
         int x = Mathf.FloorToInt((worldCoordinates - origin).x / tileSize);
         int y = Mathf.FloorToInt((worldCoordinates - origin).z / tileSize);
 
+        if (x < 0 || y < 0 || x >= tileArray.GetLength(0) || y >= tileArray.GetLength(1))
+        {
+            return null;
+        }
+
         return tileArray[x, y];
     }
 
@@ -51,7 +56,7 @@ public class TileGrid
         int x = sourceTile.x + targetTileDirection.x;
         int y = sourceTile.y + targetTileDirection.y;
 
-        if (x < 0 || y < 0 || x > tileArray.GetLength(0) || y > tileArray.GetLength(1))
+        if (x < 0 || y < 0 || x >= tileArray.GetLength(0) || y >= tileArray.GetLength(1))
         {
             return null;
         }

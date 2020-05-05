@@ -23,7 +23,7 @@ public class FreewalkingPlayer : MonoBehaviour
     private Vector3 previousPosition;
     private Vector3 newPos;
     private float rotationVelocity = 10f;
-    private float maxSpeed = 0.1f;
+    //private float maxSpeed = 0.1f;
     float newZ = 0;
     float newX = 0;
 
