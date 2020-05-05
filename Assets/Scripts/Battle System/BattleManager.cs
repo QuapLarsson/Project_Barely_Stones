@@ -1,23 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
     public Fighter myActiveFighter;
     public Fighter myInactiveFighter;
+    public GameObject myButton;
     bool myIsAnimating = false;
     float myAnimationTimer = 2f;
-    public Camera myMainCamera;
-    public Camera myCombatCamera;
-
-    //UI Start
-    public GameObject myStartFightButton;
-    public Slider myActiveFighterHPBar;
-    public Slider myInactiveFighterHPBar;
-    //UI End
 
     //TODO: Abilities
     //TODO: Critical Hit
@@ -29,18 +20,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (myInactiveFighter != null)
-        {
-            myInactiveFighterHPBar.maxValue = myInactiveFighter.myMaxHP;
-            myInactiveFighterHPBar.value = myInactiveFighter.myCurrentHP;
-            myInactiveFighterHPBar.minValue = 0;
-        }
-        if (myActiveFighter != null)
-        {
-            myActiveFighterHPBar.maxValue = myActiveFighter.myMaxHP;
-            myActiveFighterHPBar.value = myActiveFighter.myCurrentHP;
-            myActiveFighterHPBar.minValue = 0;
-        }
+        
     }
 
     //Take in two fighters and start the battle. Entry point for battles.
@@ -54,16 +34,10 @@ public class BattleManager : MonoBehaviour
         DealDamage(myActiveFighter, myInactiveFighter);
 
         //Reset scene to strategy mode
-        return;
     }
 
     public void OnClick()
     {
-        if (myInactiveFighter == null)
-        {
-            myCombatCamera.enabled = false;
-            myMainCamera.enabled = true;
-        }
         if (myIsAnimating == false)
         {
             Init(myActiveFighter, myInactiveFighter);
@@ -165,12 +139,11 @@ public class BattleManager : MonoBehaviour
 
         aActiveFighter.transform.Translate(new Vector3(-0.3f, 0, 0));
         myIsAnimating = true;
-        StartCoroutine(InactiveFighterHPBarDepletion(aInactiveFighter.myCurrentHP - damageDealt));
         if (aInactiveFighter.TakeDamage((int)damageDealt))
         {
             aInactiveFighter.Die();
+            //Destroy(aInactiveFighter.gameObject);
         }
-        return;
     }
 
     // Update is called once per frame
@@ -185,28 +158,6 @@ public class BattleManager : MonoBehaviour
                 myAnimationTimer = 2f;
                 myActiveFighter.gameObject.transform.Translate(new Vector3(0.3f, 0, 0));
             }
-        }
-    }
-
-    IEnumerator InactiveFighterHPBarDepletion(float aTargetVal)
-    {
-        while (myInactiveFighterHPBar.value > aTargetVal)
-        {
-            if (myInactiveFighterHPBar.value - aTargetVal < 0.1f)
-            {
-                myInactiveFighterHPBar.value = aTargetVal;
-            }
-            else
-            {
-                myInactiveFighterHPBar.value -= 0.1f;
-            }
-            Debug.Log(myInactiveFighterHPBar.value + ", " + aTargetVal);
-            yield return null;
-        }
-
-        if (myInactiveFighterHPBar.value <= 0)
-        {
-            Destroy(myInactiveFighterHPBar.transform.GetChild(1).GetChild(0).gameObject);
         }
     }
 }
