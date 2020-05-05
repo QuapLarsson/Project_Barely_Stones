@@ -24,7 +24,7 @@ public class SaveMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             OpenMenu(activeSavePoint);
         }
@@ -37,22 +37,21 @@ public class SaveMenu : MonoBehaviour
 
     public void OpenMenu(SavePoint _savePoint)
     {
-        if (!DialogueManager.instance.boxAnimator.GetBool("isOpen"))
+        if (!PauseManager.IsPauseState(PauseManager.PauseState.InDialogue)
+            && !PauseManager.IsPauseState(PauseManager.PauseState.InMenu))
         {
+
             if (!animator.GetBool("isOpen"))
             {
-                if (!MenuManager.instance.gamePaused)
-                {
-                    animator.SetTrigger("EnterMenu");
-                    headerAnimator.SetTrigger("Open");
-                    MenuManager.instance.gamePaused = true;
-                }
+                PauseManager.SetPauseState(PauseManager.PauseState.InSaveMenu);
+                animator.SetTrigger("EnterMenu");
+                headerAnimator.SetTrigger("Open");
             }
             else
             {
                 animator.SetTrigger("ExitMenu");
                 headerAnimator.SetTrigger("Close");
-                MenuManager.instance.gamePaused = false;
+                PauseManager.SetPauseState(PauseManager.PauseState.Playing);
             }
         }
     }

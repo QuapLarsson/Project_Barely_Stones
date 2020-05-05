@@ -77,10 +77,11 @@ public class MenuManager : MonoBehaviour
 
     public void ActivateMenu()
     {
-        if (!DialogueManager.instance.boxAnimator.GetBool("isOpen")
-            && !SaveMenu.instance.animator.GetBool("isOpen"))
+        if (!PauseManager.IsPauseState(PauseManager.PauseState.InDialogue)
+            && !PauseManager.IsPauseState(PauseManager.PauseState.InSaveMenu))
         {
-            gamePaused = true;
+            //gamePaused = true;
+            PauseManager.SetPauseState(PauseManager.PauseState.InMenu);
             menuAnimator.SetTrigger("OpenMenu");
             currentMenuState = MenuState.Main;
         }
@@ -93,7 +94,8 @@ public class MenuManager : MonoBehaviour
 
     private void DeactivateMenu()
     {
-        gamePaused = false;
+        //gamePaused = false;
+        PauseManager.SetPauseState(PauseManager.PauseState.Playing);
         menuAnimator.SetTrigger("CloseMenu");
         currentMenuState = MenuState.Inactive;
     }

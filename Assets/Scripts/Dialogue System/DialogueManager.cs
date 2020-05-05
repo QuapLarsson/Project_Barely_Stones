@@ -122,9 +122,10 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue[] dialogueTree)
     {
         
-        if (!boxAnimator.GetBool("isOpen") && !MenuManager.instance.gamePaused
-            && !SaveMenu.instance.animator.GetBool("isOpen"))
+        if (!boxAnimator.GetBool("isOpen") && !PauseManager.IsPauseState(PauseManager.PauseState.InMenu)
+            && !PauseManager.IsPauseState(PauseManager.PauseState.InSaveMenu))
         {
+            PauseManager.SetPauseState(PauseManager.PauseState.InDialogue);
             foreach (Dialogue dialogue in dialogueTree)
             {
                 boxAnimator.SetTrigger("OpenStart");
@@ -285,6 +286,7 @@ public class DialogueManager : MonoBehaviour
         rightName.SetActive(false);
         dialogueText.alpha = 0;
         boxAnimator.SetTrigger("CloseStart");
+        PauseManager.SetPauseState(PauseManager.PauseState.Playing);
     }
 
     
