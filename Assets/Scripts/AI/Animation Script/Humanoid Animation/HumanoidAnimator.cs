@@ -7,6 +7,9 @@ using Barely.Mono;
 using Barely.Helper;
 using MonsterLove.StateMachine;
 using Barely.AI.Movement;
+using Boo.Lang;
+using UnityEngine.Assertions.Must;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace Barely.AI.Animation
 {
@@ -21,7 +24,19 @@ namespace Barely.AI.Animation
         protected Animator _animator;
         protected NavMovement _movement;
 
+        protected bool _newState;
+
         [HideInInspector] public StateMachine<States> FSM;
+
+        [Tooltip("Weight on the lower part of the avatar")]
+        public float LowerPartWeight = 1;
+
+        private void OnValidate()
+        {
+            LowerPartWeight = Mathf.Max(LowerPartWeight, 0);
+            if (_animator != null)
+                _animator.SetLayerWeight(HumanoidHash.Layer.LowerLayerHash, LowerPartWeight);
+        }
 
         private void Awake()
         {
@@ -29,6 +44,35 @@ namespace Barely.AI.Animation
             _movement = GetComponent<NavMovement>();
 
             FSM = StateMachine<States>.Initialize(this, States.Init);
+
+            StartCoroutine(GetTag());
+        }
+
+        protected IEnumerator GetTag()
+        {
+            bool cache = false;
+
+            while (true)
+            {
+                bool transition = _animator.IsInTransition(HumanoidHash.Layer.BaseLayerHash);
+
+                if (transition)
+                    cache = true;
+                else if (cache && !transition)
+                {
+                    _newState = true;
+                    cache = false;
+
+                    if (_animator.GetCurrentAnimatorStateInfo(HumanoidHash.Layer.BaseLayerHash).IsTag("Upper"))
+                        _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, true);
+                    else
+                        _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, false);
+                }
+                else
+                    _newState = false;
+
+                yield return new WaitForFixedUpdate();
+            }
         }
     }
 }
