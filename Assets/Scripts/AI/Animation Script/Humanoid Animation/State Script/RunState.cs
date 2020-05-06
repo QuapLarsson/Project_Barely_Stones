@@ -7,7 +7,6 @@ using Barely.Mono;
 using Barely.Helper;
 using MonsterLove.StateMachine;
 using System.Linq;
-using UnityEditorInternal;
 
 namespace Barely.AI.Animation
 {
