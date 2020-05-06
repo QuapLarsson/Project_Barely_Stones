@@ -42,7 +42,7 @@ public class CharacterStats : MonoBehaviour
         switch (characterType)
         {
             case CharacterType.MainCharacter:
-                level = PlayerStats.instance.mainCharacterLevel;
+                level = PlayerStats.instance.activePartyData.mainCharacterLevel;
                 movement = 5;
                 health = 10;
                 power = 3;
@@ -55,7 +55,7 @@ public class CharacterStats : MonoBehaviour
                 CalculateNewStats();
                 break;
             case CharacterType.MemberTwo:
-                level = PlayerStats.instance.secondCharacterLevel;
+                level = PlayerStats.instance.activePartyData.secondCharacterLevel;
                 movement = 3;
                 health = 20;
                 power = 4;
@@ -68,7 +68,7 @@ public class CharacterStats : MonoBehaviour
                 CalculateNewStats();
                 break;
             case CharacterType.MemberThree:
-                level = PlayerStats.instance.thirdCharacterLevel;
+                level = PlayerStats.instance.activePartyData.thirdCharacterLevel;
                 movement = 7;
                 health = 7;
                 power = 6;
@@ -81,7 +81,7 @@ public class CharacterStats : MonoBehaviour
                 CalculateNewStats();
                 break;
             case CharacterType.MemberFour:
-                level = PlayerStats.instance.fourthCharacterLevel;
+                level = PlayerStats.instance.activePartyData.fourthCharacterLevel;
                 movement = 6;
                 health = 10;
                 power = 2;

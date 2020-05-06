@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [Header("Party Info")]
-    public int mainCharacterLevel = 1;
-    public int secondCharacterLevel = 1;
-    public int thirdCharacterLevel = 1;
-    public int fourthCharacterLevel = 1;
+    [Header("Player Info")]
+    public PartyData activePartyData;
+    public InventoryData activeInventoryData;
     
     [HideInInspector]
     public static PlayerStats instance;
@@ -21,6 +19,11 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        activePartyData = new PartyData();
+        activeInventoryData = new InventoryData();
+    }
     public CharacterStats GetCharacterStats(CharacterStats.CharacterType characterType)
     {
         generatedStats = new CharacterStats();

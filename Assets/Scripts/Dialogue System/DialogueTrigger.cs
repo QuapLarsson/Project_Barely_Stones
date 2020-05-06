@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
-    //public Dialogue dialogue;
     public DialogueTree dialogueTree;
     public void TriggerDialogue()
     {
-        DialogueManager.instance.StartDialogue(dialogueTree.dialogues/*, secondaryDialogue, hasSecondaryDialogue*/);
+        if (!PauseManager.IsPauseState(PauseManager.PauseState.InDialogue)
+            && !DialogueManager.instance.boxAnimator.GetBool("isOpen"))
+        {
+            DialogueManager.instance.StartDialogue(dialogueTree.dialogues);
+        }
     }
 }
