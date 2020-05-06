@@ -1,15 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BattleManager : MonoBehaviour
 {
+<<<<<<< HEAD
     public Fighter m_ActiveFighter;
     public Fighter m_InactiveFighter;
     public GameObject m_EnemyStandin;
     public GameObject m_Button;
     bool m_IsAnimating = false;
     float m_AnimationTimer = 2f;
+=======
+    public Fighter myActiveFighter;
+    public Fighter myInactiveFighter;
+    bool myIsAnimating = false;
+    float myAnimationTimer = 2f;
+    public Camera myMainCamera;
+    public Camera myCombatCamera;
+
+    //UI Start
+    public GameObject myStartFightButton;
+    public Slider myActiveFighterHPBar;
+    public Slider myInactiveFighterHPBar;
+    //UI End
+>>>>>>> parent of e0c8389d... Update BattleManager.cs
 
     //TODO: Abilities
     //TODO: Critical Hit
@@ -21,7 +38,18 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (myInactiveFighter != null)
+        {
+            myInactiveFighterHPBar.maxValue = myInactiveFighter.myMaxHP;
+            myInactiveFighterHPBar.value = myInactiveFighter.myCurrentHP;
+            myInactiveFighterHPBar.minValue = 0;
+        }
+        if (myActiveFighter != null)
+        {
+            myActiveFighterHPBar.maxValue = myActiveFighter.myMaxHP;
+            myActiveFighterHPBar.value = myActiveFighter.myCurrentHP;
+            myActiveFighterHPBar.minValue = 0;
+        }
     }
 
     //Take in two fighters and start the battle. Entry point for battles.
@@ -35,11 +63,21 @@ public class BattleManager : MonoBehaviour
         DealDamage(m_ActiveFighter, m_InactiveFighter);
 
         //Reset scene to strategy mode
+        return;
     }
 
     public void OnClick()
     {
+<<<<<<< HEAD
         if (m_IsAnimating == false)
+=======
+        if (myInactiveFighter == null)
+        {
+            myCombatCamera.enabled = false;
+            myMainCamera.enabled = true;
+        }
+        if (myIsAnimating == false)
+>>>>>>> parent of e0c8389d... Update BattleManager.cs
         {
             Init(m_ActiveFighter, m_InactiveFighter);
         }
@@ -138,6 +176,7 @@ public class BattleManager : MonoBehaviour
 
         float damageDealt = attackerTotalPower * damageRate;
 
+<<<<<<< HEAD
         a_ActiveFighter.transform.Translate(new Vector3(-0.3f, 0, 0));
         m_IsAnimating = true;
         if (a_InactiveFighter.TakeDamage((int)damageDealt))
@@ -145,7 +184,16 @@ public class BattleManager : MonoBehaviour
             a_InactiveFighter.Die();
             Destroy(m_EnemyStandin);
             //Destroy(a_InactiveFighter.gameObject);
+=======
+        aActiveFighter.transform.Translate(new Vector3(-0.3f, 0, 0));
+        myIsAnimating = true;
+        StartCoroutine(InactiveFighterHPBarDepletion(aInactiveFighter.myCurrentHP - damageDealt));
+        if (aInactiveFighter.TakeDamage((int)damageDealt))
+        {
+            aInactiveFighter.Die();
+>>>>>>> parent of e0c8389d... Update BattleManager.cs
         }
+        return;
     }
 
     // Update is called once per frame
@@ -160,6 +208,28 @@ public class BattleManager : MonoBehaviour
                 m_AnimationTimer = 2f;
                 m_ActiveFighter.gameObject.transform.Translate(new Vector3(0.3f, 0, 0));
             }
+        }
+    }
+
+    IEnumerator InactiveFighterHPBarDepletion(float aTargetVal)
+    {
+        while (myInactiveFighterHPBar.value > aTargetVal)
+        {
+            if (myInactiveFighterHPBar.value - aTargetVal < 0.1f)
+            {
+                myInactiveFighterHPBar.value = aTargetVal;
+            }
+            else
+            {
+                myInactiveFighterHPBar.value -= 0.1f;
+            }
+            Debug.Log(myInactiveFighterHPBar.value + ", " + aTargetVal);
+            yield return null;
+        }
+
+        if (myInactiveFighterHPBar.value <= 0)
+        {
+            Destroy(myInactiveFighterHPBar.transform.GetChild(1).GetChild(0).gameObject);
         }
     }
 }
