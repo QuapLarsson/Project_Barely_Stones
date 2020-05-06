@@ -7,7 +7,7 @@ public class PlayableCharacter : MonoBehaviour
 {
     NavMeshAgent navMeshAgent;
     public List<Tile> walkableTiles { get; private set; }
-    int movement = 5;
+    int movement = 5; // TEMP
 
     void Awake()
     {
