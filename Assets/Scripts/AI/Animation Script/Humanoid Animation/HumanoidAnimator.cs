@@ -45,19 +45,27 @@ namespace Barely.AI.Animation
 
             FSM = StateMachine<States>.Initialize(this, States.Init);
 
+            _animator.SetLayerWeight(HumanoidHash.Layer.LowerLayerHash, LowerPartWeight);
+
             StartCoroutine(GetTag());
         }
 
         protected IEnumerator GetTag()
         {
             bool cache = false;
+            int delay = 0;
 
             while (true)
             {
                 bool transition = _animator.IsInTransition(HumanoidHash.Layer.BaseLayerHash);
 
                 if (transition)
+                {
                     cache = true;
+                    delay = 0;
+                }
+                else if (delay <= 1) // Because Unity SUCKS!
+                    delay++;
                 else if (cache && !transition)
                 {
                     _newState = true;
