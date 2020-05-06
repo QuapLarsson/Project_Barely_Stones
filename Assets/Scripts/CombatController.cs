@@ -12,6 +12,9 @@ public class CombatController : MonoBehaviour
     [SerializeField] Vector3 gridOrigin;
     Pathfinding pathfinding;
     PlayableCharacter selectedUnit;
+    public Camera myMainCamera;
+    public Camera myCombatCamera;
+    public BattleManager myBattleManager;
 
     int turnCount;
     PlayableCharacter[] unitsToMove;
@@ -32,6 +35,7 @@ public class CombatController : MonoBehaviour
 
     Ray mouseRay;
     RaycastHit rayHit;
+
 
     void Awake()
     {
@@ -56,6 +60,7 @@ public class CombatController : MonoBehaviour
         {
             tileGrid.GetTileAt(unit.transform.position).isWalkable = false;
         }
+        myCombatCamera.enabled = false;
     }
 
     void Update()
@@ -158,6 +163,11 @@ public class CombatController : MonoBehaviour
                         if (tileGrid.GetTileAt(enemies[i].transform.position) == tile)
                         {
                             Debug.Log(string.Format("Attacked {0}", enemies[i].name));
+                            myCombatCamera.enabled = true;
+                            myMainCamera.enabled = false;
+                            GameObject temp = enemies[i].gameObject;
+                            myBattleManager.Init(ref temp);
+                            //myBattleManager.Init();
                         }
                     }
 
