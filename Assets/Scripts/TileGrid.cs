@@ -36,7 +36,7 @@ public class TileGrid
         }
     }
 
-    public Vector3 GetWorldPosition (int x, int y) => new Vector3(x, 0, y) * tileSize + origin;
+    public Vector3 GetWorldPosition(int x, int y) => new Vector3(x, 0, y) * tileSize + origin;
 
     public Tile GetTileAt(Vector3 worldCoordinates)
     {
@@ -50,6 +50,8 @@ public class TileGrid
 
         return tileArray[x, y];
     }
+
+    public Tile GetTileFrom(GameObject gameObject) => GetTileAt(gameObject.transform.position);
 
     public Tile GetTileByDirectionInGrid(Tile sourceTile, Vector2Int targetTileDirection)
     {

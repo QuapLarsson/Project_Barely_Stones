@@ -10,6 +10,95 @@ public class Pathfinding
         currentTileGrid = tileGrid;
     }
 
+    public Tile FindTileInRangeOfUnit(Tile startTile, Tile unitTile, int attackRange)
+    {
+        List<Tile> closestPath = new List<Tile>();
+
+        for (int x = unitTile.x - attackRange; x <= unitTile.x + attackRange; x++)
+        {
+            if (x < 0 || x > currentTileGrid.tileArray.GetLength(0) - 1) continue;
+
+            for (int y = unitTile.y - attackRange; y <= unitTile.y + attackRange; y++)
+            {
+                if (y < 0 || y > currentTileGrid.tileArray.GetLength(1) - 1) continue;
+
+                if (x + y >= unitTile.x + unitTile.y - attackRange &&
+                    x + y <= unitTile.x + unitTile.y + attackRange &&
+                    currentTileGrid.tileArray[x, y].isWalkable)
+                {
+                    List<Tile> possiblePath = FindPath(startTile, currentTileGrid.tileArray[x, y]);
+
+                    if (closestPath.Count == 0)
+                    {
+                        closestPath = possiblePath;
+                    }
+
+                    else if (possiblePath.Count < closestPath.Count)
+                    {
+                        closestPath = possiblePath;
+                    }
+                }
+            }
+        }
+
+        return closestPath[closestPath.Count - 1];
+    }
+
+    public List<PlayableCharacter> FindUnitsInRange(Tile startTile, int pathLenght, int attackRange, PlayableCharacter[] playableCharacters)
+    {
+        List<Tile> moveableTiles = FindAllPaths(startTile, pathLenght);
+        List<Tile> allTilesWithUnits = new List<Tile>();
+
+        foreach (PlayableCharacter playableCharacter in playableCharacters)
+        {
+            allTilesWithUnits.Add(currentTileGrid.GetTileFrom(playableCharacter.gameObject));
+        }
+
+        List<Tile> attackableTiles = new List<Tile>();
+
+        for (int i = 0; i < moveableTiles.Count; i++)
+        {
+            for (int x = moveableTiles[i].x - attackRange; x <= moveableTiles[i].x + attackRange; x++)
+            {
+                if (x < 0 || x > currentTileGrid.tileArray.GetLength(0) - 1) continue;
+
+                for (int y = moveableTiles[i].y - attackRange; y <= moveableTiles[i].y + attackRange; y++)
+                {
+                    if (y < 0 || y > currentTileGrid.tileArray.GetLength(1) - 1) continue;
+
+                    if (x + y >= moveableTiles[i].x + moveableTiles[i].y - attackRange && 
+                        x + y <= moveableTiles[i].x + moveableTiles[i].y + attackRange && 
+                        currentTileGrid.tileArray[x, y] != startTile)
+                    {
+                        foreach (Tile unitTile in allTilesWithUnits.ToArray())
+                        {
+                            if (unitTile == currentTileGrid.tileArray[x, y])
+                            {
+                                attackableTiles.Add(unitTile);
+                                allTilesWithUnits.Remove(unitTile);
+                            } 
+                        }
+                    }
+                }
+            }
+        }
+
+        List<PlayableCharacter> unitsInRange = new List<PlayableCharacter>();
+
+        for (int i = 0; i < attackableTiles.Count; i++)
+        {
+            for (int j = 0; j < playableCharacters.Length; j++)
+            {
+                if (attackableTiles[i] == currentTileGrid.GetTileFrom(playableCharacters[j].gameObject))
+                {
+                    unitsInRange.Add(playableCharacters[j]);
+                }
+            }
+        }
+
+        return unitsInRange;
+    }
+
     public List<Tile> FindAllPaths(Tile startTile, int pathLength)
     {
         List<Tile> unsearchedTiles = new List<Tile>();

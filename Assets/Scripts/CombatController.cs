@@ -216,6 +216,11 @@ public class CombatController : MonoBehaviour
     {
         unitsToMove = FindObjectsOfType<PlayableCharacter>();
 
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.UseTurn(unitsToMove, tileGrid, pathfinding);
+        }
+
         for (int i = 0; i < unitsToMove.Length; i++)
         {
             unitsToMove[i].GetComponent<Renderer>().material = unitMat;
@@ -236,15 +241,15 @@ public class CombatController : MonoBehaviour
 
         enemyTiles = new List<Tile>();
 
-        Tile[] adjacentTiles = tileGrid.GetAdjacentTiles(tileGrid.GetTileAt(selectedUnit.transform.position));
+        Tile[] adjacentTiles = tileGrid.GetAdjacentTiles(tileGrid.GetTileFrom(selectedUnit.gameObject));
 
         for (int i = 0; i < enemies.Length; i++)
         {
             for (int j = 0; j < adjacentTiles.Length; j++)
             {
-                if (tileGrid.GetTileAt(enemies[i].transform.position) == adjacentTiles[j])
+                if (tileGrid.GetTileFrom(enemies[i].gameObject) == adjacentTiles[j])
                 {
-                    enemyTiles.Add(tileGrid.GetTileAt(enemies[i].transform.position));
+                    enemyTiles.Add(tileGrid.GetTileFrom(enemies[i].gameObject));
                 }
             }
         }
