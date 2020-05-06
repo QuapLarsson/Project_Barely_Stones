@@ -49,29 +49,37 @@ public class MenuManager : MonoBehaviour
     
     private void EscapeButton()
     {
-        switch (currentMenuState)
+        if (!PauseManager.IsPauseState(PauseManager.PauseState.InSaveMenu) &&
+            !PauseManager.IsPauseState(PauseManager.PauseState.InDialogue))
         {
-            case MenuState.Inactive:
-                ActivateMenu();
-                break;
-            case MenuState.Main:
-                DeactivateMenu();
-                break;
-            case MenuState.Characters:
-                CloseCharacters();
-                break;
-            case MenuState.Inventory:
-                CloseInventory();
-                break;
-            case MenuState.AdventureLog:
-                CloseAdventureLog();
-                break;
-            case MenuState.Settings:
-                CloseSettings();
-                break;
-            case MenuState.ExitGame:
-                CloseExitGame();
-                break;
+            switch (currentMenuState)
+            {
+                case MenuState.Inactive:
+                    ActivateMenu();
+                    break;
+                case MenuState.Main:
+                    DeactivateMenu();
+                    break;
+                case MenuState.Characters:
+                    CloseCharacters();
+                    break;
+                case MenuState.Inventory:
+                    CloseInventory();
+                    break;
+                case MenuState.AdventureLog:
+                    CloseAdventureLog();
+                    break;
+                case MenuState.Settings:
+                    CloseSettings();
+                    break;
+                case MenuState.ExitGame:
+                    CloseExitGame();
+                    break;
+            }
+        }
+        else if (PauseManager.IsPauseState(PauseManager.PauseState.InSaveMenu))
+        {
+            SaveMenu.instance.CloseMenu();
         }
     }
 

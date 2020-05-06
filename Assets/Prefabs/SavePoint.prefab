@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6892323029220895534}
   - component: {fileID: 7243926264673015368}
   - component: {fileID: 4958038045997428086}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3598719353296053412}
   - component: {fileID: 2475270167633027424}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Decal Projector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 3831412977535275658}
   - component: {fileID: 4800997999797993718}
   - component: {fileID: 1431559261427671267}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2380054174291605571}
   - component: {fileID: -3219985577442325084}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SavePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,3 +393,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Save Point Descriptor
   id: 0
+  layer:
+    serializedVersion: 2
+    m_Bits: 8192
