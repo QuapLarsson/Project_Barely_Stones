@@ -165,6 +165,8 @@ public class CombatController : MonoBehaviour
                             Debug.Log(string.Format("Attacked {0}", enemies[i].name));
                             myCombatCamera.enabled = true;
                             myMainCamera.enabled = false;
+                            GameObject temp = enemies[i].gameObject;
+                            myBattleManager.Init(ref temp);
                             //myBattleManager.Init();
                         }
                     }
