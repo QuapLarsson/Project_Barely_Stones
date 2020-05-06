@@ -1,14 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    public Fighter myActiveFighter;
-    public Fighter myInactiveFighter;
-    public GameObject myButton;
-    bool myIsAnimating = false;
-    float myAnimationTimer = 2f;
+    public Fighter m_ActiveFighter;
+    public Fighter m_InactiveFighter;
+    GameObject m_EnemyStandin;
+    bool m_IsAnimating = false;
+    float m_AnimationTimer = 2f;
+    public Camera m_MainCamera;
+    public Camera m_CombatCamera;
+
+    //UI Start
+    public GameObject m_StartFightButton;
+    public Slider m_ActiveFighterHPBar;
+    public Slider m_InactiveFighterHPBar;
+    //UI End
 
     //TODO: Abilities
     //TODO: Critical Hit
@@ -20,45 +29,63 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (m_InactiveFighter != null)
+        {
+            m_InactiveFighterHPBar.maxValue = m_InactiveFighter.myMaxHP;
+            m_InactiveFighterHPBar.value = m_InactiveFighter.myCurrentHP;
+            m_InactiveFighterHPBar.minValue = 0;
+        }
+        if (m_ActiveFighter != null)
+        {
+            m_ActiveFighterHPBar.maxValue = m_ActiveFighter.myMaxHP;
+            m_ActiveFighterHPBar.value = m_ActiveFighter.myCurrentHP;
+            m_ActiveFighterHPBar.minValue = 0;
+        }
     }
 
     //Take in two fighters and start the battle. Entry point for battles.
-    public void Init(Fighter aActiveFighter, Fighter aInactiveFighter)
+    public void Init(/*Fighter a_ActiveFighter, Fighter a_InactiveFighter*/ ref GameObject a_Enemy)
     {
-        myActiveFighter = aActiveFighter;
-        myInactiveFighter = aInactiveFighter;
+        //m_ActiveFighter = a_ActiveFighter;
+        //m_InactiveFighter = a_InactiveFighter;
+        m_EnemyStandin = a_Enemy;
 
         //TODO: Shift camera and present battle scene ???
 
-        DealDamage(myActiveFighter, myInactiveFighter);
+        //DealDamage(m_ActiveFighter, m_InactiveFighter);
 
         //Reset scene to strategy mode
+        return;
     }
 
     public void OnClick()
     {
-        if (myIsAnimating == false)
+        if (m_InactiveFighter == null)
         {
-            Init(myActiveFighter, myInactiveFighter);
+            m_CombatCamera.enabled = false;
+            m_MainCamera.enabled = true;
+        }
+        if (m_IsAnimating == false)
+        {
+            DealDamage(m_ActiveFighter, m_InactiveFighter);
         }
     }
 
     //Start battle sequence. Kapow.
-    void DealDamage(Fighter aActiveFighter, Fighter aInactiveFighter)
+    void DealDamage(Fighter a_ActiveFighter, Fighter a_InactiveFighter)
     {
         float damageRate = 1f;
         int attackerTotalPower;
         int defenderTotalDefence;
 
-        attackerTotalPower = aActiveFighter.myPower + aActiveFighter.myWeapon.myPower;
-        defenderTotalDefence = aInactiveFighter.myDefence + aInactiveFighter.myArmour.myDefence;
+        attackerTotalPower = a_ActiveFighter.myPower + a_ActiveFighter.myWeapon.myPower;
+        defenderTotalDefence = a_InactiveFighter.myDefence + a_InactiveFighter.myArmour.myDefence;
 
         //Adjust damage rate based on damage and armour types used
-        switch (aActiveFighter.myWeapon.myDamageType)
+        switch (a_ActiveFighter.myWeapon.myDamageType)
         {
             case DamageType.Slashing:
-                switch (aInactiveFighter.myArmour.myArmourType)
+                switch (a_InactiveFighter.myArmour.myArmourType)
                 {
                     case ArmourType.Heavy:
                         damageRate *= 0.5f;
@@ -77,7 +104,7 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case DamageType.Blunt:
-                switch (aInactiveFighter.myArmour.myArmourType)
+                switch (a_InactiveFighter.myArmour.myArmourType)
                 {
                     case ArmourType.Heavy:
                         damageRate *= 2f;
@@ -96,7 +123,7 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
             case DamageType.Piercing:
-                switch (aInactiveFighter.myArmour.myArmourType)
+                switch (a_InactiveFighter.myArmour.myArmourType)
                 {
                     case ArmourType.Heavy:
                         damageRate *= 1f;
@@ -136,28 +163,54 @@ public class BattleManager : MonoBehaviour
         }
 
         float damageDealt = attackerTotalPower * damageRate;
-
-        aActiveFighter.transform.Translate(new Vector3(-0.3f, 0, 0));
-        myIsAnimating = true;
-        if (aInactiveFighter.TakeDamage((int)damageDealt))
+        
+        a_ActiveFighter.transform.Translate(new Vector3(-0.3f, 0, 0));
+        m_IsAnimating = true;
+        StartCoroutine(InactiveFighterHPBarDepletion(a_InactiveFighter.myCurrentHP - damageDealt));
+        if (a_InactiveFighter.TakeDamage((int)damageDealt))
         {
-            aInactiveFighter.Die();
-            //Destroy(aInactiveFighter.gameObject);
+            Destroy(m_EnemyStandin);
+            a_InactiveFighter.Die();
         }
+        a_ActiveFighter.transform.Translate(new Vector3(-0.3f, 0, 0));
+        m_IsAnimating = true;
+        return;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (myIsAnimating == true)
+        if (m_IsAnimating == true)
         {
-            myAnimationTimer -= Time.deltaTime;
-            if (myAnimationTimer <= 0f)
+            m_AnimationTimer -= Time.deltaTime;
+            if (m_AnimationTimer <= 0f)
             {
-                myIsAnimating = false;
-                myAnimationTimer = 2f;
-                myActiveFighter.gameObject.transform.Translate(new Vector3(0.3f, 0, 0));
+                m_IsAnimating = false;
+                m_AnimationTimer = 2f;
+                m_ActiveFighter.gameObject.transform.Translate(new Vector3(0.3f, 0, 0));
             }
+        }
+    }
+
+    IEnumerator InactiveFighterHPBarDepletion(float aTargetVal)
+    {
+        while (m_InactiveFighterHPBar.value > aTargetVal)
+        {
+            if (m_InactiveFighterHPBar.value - aTargetVal < 0.1f)
+            {
+                m_InactiveFighterHPBar.value = aTargetVal;
+            }
+            else
+            {
+                m_InactiveFighterHPBar.value -= 0.1f;
+            }
+            Debug.Log(m_InactiveFighterHPBar.value + ", " + aTargetVal);
+            yield return null;
+        }
+
+        if (m_InactiveFighterHPBar.value <= 0)
+        {
+            Destroy(m_InactiveFighterHPBar.transform.GetChild(1).GetChild(0).gameObject);
         }
     }
 }

@@ -7,6 +7,8 @@ TagManager:
   - playerCharacter
   - enemyCharacter
   - gameCharacter
+  - UI
+  - combatCamera
   layers:
   - Default
   - TransparentFX
@@ -17,11 +19,11 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
+  - Walkable
   - 
   - 
   - selectableCharacter
-  - 
+  - SavePoints
   - 
   - 
   - 
@@ -41,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: UI
+    uniqueID: 1240966653
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class DialogueManager : MonoBehaviour
     public GameObject yesNoBox;
     public TMP_Text optionOneText;
     public TMP_Text optionTwoText;
+    public GameObject nextButton;
+    public TMP_Text nextButtonText;
 
     public Animator boxAnimator;
     public AudioSource audioSource;
@@ -60,14 +63,26 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("DialogueManager instance already exists.");
         }
-        //nameTextLeft.alpha = 0;
-        //nameTextRight.alpha = 0;
         leftName.SetActive(false);
         rightName.SetActive(false);
         yesNoBox.SetActive(false);
+        nextButton.SetActive(false);
         dialogueText.alpha = 0;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+        {
+            DisplayNextTextBatch();
+        }
+
+        //if (!boxAnimator.GetBool("isOpen"))
+        //{
+        //    StopAllCoroutines();
+        //    dialogueText.alpha = 0;
+        //}
+    }
     void Start()
     {
         textBatches = new Queue<string>();
@@ -107,14 +122,19 @@ public class DialogueManager : MonoBehaviour
     /// Adds all text batches from dialogue to queue.
     /// </summary>
     /// <param name="dialogue"></param>
-    public void StartDialogue(Dialogue[] dialogueTree/*Dialogue dialogue, Dialogue _secondary, bool _secondaryTrue*/)
+    public void StartDialogue(Dialogue[] dialogueTree)
     {
         
-        if (!boxAnimator.GetBool("isOpen"))
+        if (PauseManager.IsPauseState(PauseManager.PauseState.Playing))
         {
+            dialogueQueue.Clear();
+            textBatches.Clear();
+            PauseManager.SetPauseState(PauseManager.PauseState.InDialogue);
+            //boxAnimator.SetTrigger("OpenStart");
+            boxAnimator.SetBool("isOpen", true);
             foreach (Dialogue dialogue in dialogueTree)
             {
-                boxAnimator.SetTrigger("OpenStart");
+                
                 dialogueQueue.Enqueue(dialogue);
 
 
@@ -135,8 +155,6 @@ public class DialogueManager : MonoBehaviour
             {
                 textBatches.Enqueue(textBatch);
             }
-
-            
         }
     }
     /// <summary>
@@ -148,11 +166,11 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     public void DisplayNextTextBatch()
     {
-        if (boxAnimator.GetBool("isOpen"))
+        if (PauseManager.IsPauseState(PauseManager.PauseState.InDialogue))
         {
             CheckNames();
             
-            dialogueText.alpha = 255;
+            
             if (isTyping)
             {
                 StopAllCoroutines();
@@ -165,6 +183,21 @@ public class DialogueManager : MonoBehaviour
                 {
                     NextDialogue();
                     return;
+                }
+                else if (textBatches.Count == 1 && dialogueQueue.Count == 0)
+                {
+                    nextButtonText.SetText("End");
+                }
+                //else if (textBatches.Count == 0 && dialogueQueue.Count == 0)
+                //{
+                //    StopAllCoroutines();
+                //    isTyping = false;
+                //    dialogueText.alpha = 0;
+                //}
+                else
+                {
+                    nextButtonText.SetText("Next");
+                    dialogueText.alpha = 255;
                 }
 
                 batch = textBatches.Dequeue();
@@ -199,27 +232,31 @@ public class DialogueManager : MonoBehaviour
 
     public void NextDialogue()
     {
-        if (dialogueQueue.Count == 0)
+        if (PauseManager.IsPauseState(PauseManager.PauseState.InDialogue))
         {
-            EndDialogue();
-            return;
+            if (dialogueQueue.Count == 0)
+            {
+                EndDialogue();
+                return;
+            }
+
+            newDialogue = dialogueQueue.Dequeue();
+
+            audioSource.pitch = newDialogue.pitch;
+            nameTextLeft.text = newDialogue.leftName;
+            nameTextRight.text = newDialogue.rightName;
+            leftNameOn = newDialogue.leftNameOn;
+            rightNameOn = newDialogue.rightNameOn;
+            textBatches.Clear();
+            ChangeTextSpeed(newDialogue.textSpeed);
+
+            foreach (string textBatch in newDialogue.textBatches)
+            {
+                textBatches.Enqueue(textBatch);
+            }
+
+            DisplayNextTextBatch();
         }
-
-        newDialogue = dialogueQueue.Dequeue();
-
-        audioSource.pitch = newDialogue.pitch;
-        nameTextLeft.text = newDialogue.leftName;
-        nameTextRight.text = newDialogue.rightName;
-        leftNameOn = newDialogue.leftNameOn;
-        rightNameOn = newDialogue.rightNameOn;
-        textBatches.Clear();
-        ChangeTextSpeed(newDialogue.textSpeed);
-
-        foreach (string textBatch in newDialogue.textBatches)
-        {
-            textBatches.Enqueue(textBatch);
-        }
-        DisplayNextTextBatch();
     }
     /// <summary>
     /// Goes through each char in text batch and types them out with a delay.
@@ -254,16 +291,21 @@ public class DialogueManager : MonoBehaviour
         }
         isTyping = false;
     }
+
     /// <summary>
     /// Changes text alphas to 0 to hide before closing animation.
     /// Triggers closing animation, which changes animator's bool isOpen to false once completed.
     /// </summary>
     public void EndDialogue()
     {
+        textBatches.Clear();
+        dialogueQueue.Clear();
         leftName.SetActive(false);
         rightName.SetActive(false);
         dialogueText.alpha = 0;
-        boxAnimator.SetTrigger("CloseStart");
+        //boxAnimator.SetTrigger("CloseStart");
+        boxAnimator.SetBool("isOpen", false);
+        //PauseManager.SetPauseState(PauseManager.PauseState.Playing);
     }
 
     
