@@ -17,43 +17,35 @@ public class SaveMenu : MonoBehaviour
             instance = this;
         }
     }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OpenMenu(activeSavePoint);
-        }
-    }
 
     public void RequestSave(int _saveSlot)
     {
-        SaveManager.SaveData(activeSavePoint, _saveSlot);
+        SaveManager.SavePlayerData(activeSavePoint, /*PlayerStats.instance.activePartyData, PlayerStats.instance.activeInventoryData,*/ _saveSlot);
+        CloseMenu();
     }
 
     public void OpenMenu(SavePoint _savePoint)
     {
-        if (!DialogueManager.instance.boxAnimator.GetBool("isOpen"))
+        if (!PauseManager.IsPauseState(PauseManager.PauseState.InDialogue)
+            && !PauseManager.IsPauseState(PauseManager.PauseState.InMenu))
         {
+            activeSavePoint = _savePoint;
             if (!animator.GetBool("isOpen"))
             {
-                if (!MenuManager.instance.gamePaused)
-                {
-                    animator.SetTrigger("EnterMenu");
-                    headerAnimator.SetTrigger("Open");
-                    MenuManager.instance.gamePaused = true;
-                }
+                PauseManager.SetPauseState(PauseManager.PauseState.InSaveMenu);
+                animator.SetTrigger("EnterMenu");
+                headerAnimator.SetTrigger("Open");
             }
-            else
-            {
-                animator.SetTrigger("ExitMenu");
-                headerAnimator.SetTrigger("Close");
-                MenuManager.instance.gamePaused = false;
-            }
+        }
+    }
+
+    public void CloseMenu()
+    {
+        if (PauseManager.IsPauseState(PauseManager.PauseState.InSaveMenu))
+        {
+            animator.SetTrigger("ExitMenu");
+            headerAnimator.SetTrigger("Close");
+            PauseManager.SetPauseState(PauseManager.PauseState.Playing);
         }
     }
 }
