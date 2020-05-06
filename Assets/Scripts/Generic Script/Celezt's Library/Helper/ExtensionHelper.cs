@@ -185,7 +185,7 @@ namespace Barely.Helper
         /// <returns>If in destination.</returns>
         public static bool isOnDestination(this NavMeshAgent agent, float threshold) => Vector3.SqrMagnitude(agent.transform.position - agent.destination) < threshold ? true : false;
         #endregion
-        #region Animator
+        #region Animator Extensions
         /// <summary>
         /// Sets the value of the given enum parameter.
         /// </summary>
