@@ -113,6 +113,6 @@ public class CameraControllerScript : MonoBehaviour
         CameraTransform.localPosition = lowestPosition + (highestPosition * cameraRailPosition);
         Vector3 RotationVector = CameraTransform.rotation.eulerAngles;
         RotationVector.x = minAngle + (maxAngle * cameraRailPosition);
-        CameraTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        CameraTransform.rotation = Quaternion.Euler(RotationVector);
     }
 }
