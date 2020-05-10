@@ -9,7 +9,7 @@ public class MenuManager : MonoBehaviour
     public GameObject pauseMenu;
     public Animator menuAnimator;
     public Animator charMenuAnimator;
-
+    public CharacterMenu charMenu;
     [HideInInspector]
     public bool gamePaused;
     public static MenuManager instance;
@@ -122,6 +122,7 @@ public class MenuManager : MonoBehaviour
     public void OpenCharacters()
     {
         charMenuAnimator.SetTrigger("OpenMenu");
+        charMenu.OnClick(1);
         currentMenuState = MenuState.Characters;
     }
 

@@ -23,8 +23,6 @@ public class DialogueManager : MonoBehaviour
 
     public Animator boxAnimator;
     public AudioSource audioSource;
-    //[Range(1, 5)]
-    //public int textSpeedSetting=1;
     public TextSpeeds currentTextSpeed;
     [HideInInspector]
     private Dialogue newDialogue;
@@ -67,7 +65,7 @@ public class DialogueManager : MonoBehaviour
         rightName.SetActive(false);
         yesNoBox.SetActive(false);
         nextButton.SetActive(false);
-        dialogueText.alpha = 0;
+        dialogueText.text = " ";
     }
 
     private void Update()
@@ -77,11 +75,6 @@ public class DialogueManager : MonoBehaviour
             DisplayNextTextBatch();
         }
 
-        //if (!boxAnimator.GetBool("isOpen"))
-        //{
-        //    StopAllCoroutines();
-        //    dialogueText.alpha = 0;
-        //}
     }
     void Start()
     {
@@ -130,7 +123,6 @@ public class DialogueManager : MonoBehaviour
             dialogueQueue.Clear();
             textBatches.Clear();
             PauseManager.SetPauseState(PauseManager.PauseState.InDialogue);
-            //boxAnimator.SetTrigger("OpenStart");
             boxAnimator.SetBool("isOpen", true);
             foreach (Dialogue dialogue in dialogueTree)
             {
@@ -143,7 +135,6 @@ public class DialogueManager : MonoBehaviour
             newDialogue = dialogueQueue.Dequeue();
 
             audioSource.pitch = newDialogue.pitch;
-            //boxAnimator.SetTrigger("OpenStart");
             nameTextLeft.text = newDialogue.leftName;
             nameTextRight.text = newDialogue.rightName;
             leftNameOn = newDialogue.leftNameOn;
@@ -169,8 +160,7 @@ public class DialogueManager : MonoBehaviour
         if (PauseManager.IsPauseState(PauseManager.PauseState.InDialogue))
         {
             CheckNames();
-            
-            
+
             if (isTyping)
             {
                 StopAllCoroutines();
@@ -188,16 +178,10 @@ public class DialogueManager : MonoBehaviour
                 {
                     nextButtonText.SetText("End");
                 }
-                //else if (textBatches.Count == 0 && dialogueQueue.Count == 0)
-                //{
-                //    StopAllCoroutines();
-                //    isTyping = false;
-                //    dialogueText.alpha = 0;
-                //}
                 else
                 {
                     nextButtonText.SetText("Next");
-                    dialogueText.alpha = 255;
+                    
                 }
 
                 batch = textBatches.Dequeue();
@@ -302,10 +286,7 @@ public class DialogueManager : MonoBehaviour
         dialogueQueue.Clear();
         leftName.SetActive(false);
         rightName.SetActive(false);
-        dialogueText.alpha = 0;
-        //boxAnimator.SetTrigger("CloseStart");
         boxAnimator.SetBool("isOpen", false);
-        //PauseManager.SetPauseState(PauseManager.PauseState.Playing);
     }
 
     
