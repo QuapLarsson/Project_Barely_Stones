@@ -5,14 +5,11 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
 public static class SaveManager 
-{
-    [HideInInspector]
-    public static bool isSaving;
-    
+{   
     public static void SavePlayerData(SavePoint _savePoint, int _saveSlot)
     {
-        isSaving = true;
         string path = Application.persistentDataPath + "/SaveSlot" + _saveSlot + ".bin";
+        //Debug.Log("Saving to: " + path);
         FileStream stream = new FileStream(path, FileMode.Create);
 
         SaveData saveData = new SaveData(_savePoint);
@@ -21,7 +18,6 @@ public static class SaveManager
         formatter.Serialize(stream, saveData);
 
         stream.Close();
-        isSaving = false;
     }
 
     public static SaveData LoadData(int _saveSlot)
