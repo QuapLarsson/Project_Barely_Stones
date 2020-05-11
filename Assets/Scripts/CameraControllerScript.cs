@@ -104,7 +104,7 @@ public class CameraControllerScript : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, fokusPosition, speedToFokus);
         }
 
-        cameraRailPosition += Input.GetAxis("Mouse ScrollWheel")*scrollSensitivity;
+        cameraRailPosition += Input.GetAxis("Mouse ScrollWheel")*-scrollSensitivity;
         cameraRailPosition = Mathf.Clamp(cameraRailPosition, 0, 1);
 
         Vector3 cameraDiffPos = highestPosition - lowestPosition;
