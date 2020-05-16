@@ -45,7 +45,7 @@ namespace Barely.UserInput
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
                 if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity, Accessible))
-                    _movement.CalculateDestination(hit.point);
+                    _movement.Target = hit.point;
             }
 
             IEnumerator Hold()
