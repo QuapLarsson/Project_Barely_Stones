@@ -21,13 +21,18 @@ namespace Barely.AI.Movement
         protected NavMeshPath _path;
 
         protected float _speed;
+        protected Vector3 _target;
 
         #region Exposed To Inspector
         [HideInInspector] public StateMachine<States> FSM;
         /// <summary>
         /// Path's target.
         /// </summary>
-        public Vector3 Target { get; private set; }
+        public Vector3 Target
+        {
+            get =>  _target;
+            set => CalculateDestination(value);
+        }
         /// <summary>
         /// Length of the current destination.
         /// </summary>
@@ -68,10 +73,15 @@ namespace Barely.AI.Movement
 
         #endregion
         #region Support Methods
+        /// <summary>
+        /// Calculate new destination.
+        /// </summary>
+        /// <param name="target">New position.</param>
+        /// <returns>If the path was found.</returns>
         public bool CalculateDestination(Vector3 target)
         {
             bool pathFound = _agent.CalculatePath(target, _path, NavMesh.AllAreas);
-            Target = target;
+            _target = target;
             PathLength = _agent.path.GetPathLength();
             return pathFound;
         }
