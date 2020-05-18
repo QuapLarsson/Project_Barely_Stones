@@ -23,8 +23,8 @@ namespace Barely.AI.Movement
         protected float _speed;
         protected Vector3 _target;
 
-        #region Exposed To Inspector
-        [HideInInspector] public StateMachine<States> FSM;
+        #region Public properties
+        public StateMachine<States> FSM { get; set; }
         /// <summary>
         /// Path's target.
         /// </summary>
@@ -34,10 +34,15 @@ namespace Barely.AI.Movement
             set => CalculateDestination(value);
         }
         /// <summary>
+        /// Look if agent is on destination.
+        /// </summary>
+        public bool IsOnDestination { get => CalculateIsOnDestination(); }
+        /// <summary>
         /// Length of the current destination.
         /// </summary>
         public float PathLength { get; private set; }
-
+        #endregion
+        #region Exposed To Inspector
         [Header("NavMesh")]
 
         [Tooltip("Calculate the time between each path calculation in seconds.")]
@@ -85,6 +90,11 @@ namespace Barely.AI.Movement
             PathLength = _agent.path.GetPathLength();
             return pathFound;
         }
+        /// <summary>
+        /// Calculate if on destination.
+        /// </summary>
+        /// <returns>If on destination.</returns>
+        public bool CalculateIsOnDestination() => _agent.isOnDestination(Threshold);
         #endregion
     }
 }
