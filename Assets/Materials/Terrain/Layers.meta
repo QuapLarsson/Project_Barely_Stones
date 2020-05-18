@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Materials/Terrain/Layers.meta
 guid: 69128386015fc1a4c8d4518177c7cd62
+=======
+guid: 4946a7e52752d4343a5f6680342cfc65
+>>>>>>> master:Assets/Prefabs/Avatar/Humanoid/Avatar Mask.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
