@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.HighDefinition;
 
 namespace Barely.Helper
 {
@@ -12,7 +15,7 @@ namespace Barely.Helper
     /// <remarks>Made by Celezt.</remarks>
     public static partial class ExtensionHelper
     {
-        #region Mathematical Extension
+        #region Mathematical Extensions
         /// <summary>
         /// Limit min value.
         /// </summary>
@@ -204,6 +207,26 @@ namespace Barely.Helper
             }
             return false;
         }
+        /// <summary>
+        /// If the parameter exist.
+        /// </summary>
+        /// <param name="animator">Animator.</param>
+        /// <param name="parameterHash">Index.</param>
+        /// <returns>If it exist.</returns>
+        public static bool HasParameter(this Animator animator, int parameterHash)
+        {
+            foreach (AnimatorControllerParameter param in animator.parameters)
+                if (param.nameHash == parameterHash)
+                    return true;
+            return false;
+        }
+        /// <summary>
+        /// If the layer exist.
+        /// </summary>
+        /// <param name="animator">Animator.</param>
+        /// <param name="layerHash">Index.</param>
+        /// <returns>If it exist.</returns>
+        public static bool HasLayer(this Animator animator, int layerHash) => layerHash <= animator.layerCount - 1;
         #endregion
     }
 }

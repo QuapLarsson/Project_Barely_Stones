@@ -34,7 +34,7 @@ namespace Barely.AI.Animation
         private void OnValidate()
         {
             LowerPartWeight = Mathf.Max(LowerPartWeight, 0);
-            if (_animator != null)
+            if (_animator != null && _animator.HasLayer(HumanoidHash.Layer.LowerLayerHash))
                 _animator.SetLayerWeight(HumanoidHash.Layer.LowerLayerHash, LowerPartWeight);
         }
 
@@ -45,7 +45,8 @@ namespace Barely.AI.Animation
 
             FSM = StateMachine<States>.Initialize(this, States.Init);
 
-            _animator.SetLayerWeight(HumanoidHash.Layer.LowerLayerHash, LowerPartWeight);
+            if (_animator.HasLayer(HumanoidHash.Layer.LowerLayerHash))
+                _animator.SetLayerWeight(HumanoidHash.Layer.LowerLayerHash, LowerPartWeight);
 
             StartCoroutine(GetTag());
         }
@@ -71,10 +72,13 @@ namespace Barely.AI.Animation
                     _newState = true;
                     cache = false;
 
-                    if (_animator.GetCurrentAnimatorStateInfo(HumanoidHash.Layer.BaseLayerHash).IsTag("Upper"))
-                        _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, true);
-                    else
-                        _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, false);
+                    if (_animator.HasParameter(HumanoidHash.Parameter.LowerPartHash))
+                    {
+                        if (_animator.GetCurrentAnimatorStateInfo(HumanoidHash.Layer.BaseLayerHash).IsTag("Upper"))
+                            _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, true);
+                        else
+                            _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, false);
+                    }
                 }
                 else
                     _newState = false;
