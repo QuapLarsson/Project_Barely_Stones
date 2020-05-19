@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/Avatar/Humanoid.meta
+guid: c0b7d76e7bd15f44c940558f5f71966a
+=======
 guid: 010d8a6e57430ac488d0e725ac397a8f
+>>>>>>> master:Assets/Models/stones.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
