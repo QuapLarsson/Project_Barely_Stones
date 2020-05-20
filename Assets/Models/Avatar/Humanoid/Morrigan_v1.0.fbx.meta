@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25db46c098ef24d45be7dd3479b233f9
+guid: eb7240c598738f741b699225faca64ee
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: No Name
-    second: {fileID: 2100000, guid: 7b7fa1069db61c74c941340fab7aa330, type: 2}
+      name: female_avatar_texture
+    second: {fileID: 2100000, guid: f54570427be653b4f8b20559b28d0274, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hair01_texture
+    second: {fileID: 2100000, guid: d1a6f98de11d97044b1e442336a6d928, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: morrigan_clothing_texture
+    second: {fileID: 2100000, guid: db112004bf2e85f4097f84df0275b9fb, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
