@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &4747477836817278060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2305841246345344674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97689db1eb3780446aa2622a754ef488, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LowerPartWeight: 1
 --- !u!195 &2605667512608882848
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -51,6 +38,34 @@ MonoBehaviour:
   Threshold: 0.01
   DistanceToRun: 3
   RunMultiplier: 3
+--- !u!114 &4747477836817278060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2305841246345344674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97689db1eb3780446aa2622a754ef488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LowerPartWeight: 1
+--- !u!114 &8276292043845467908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2305841246345344674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256a116703cb6d34d90d1278ea37e088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Accessible:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &4088722495384701763
 GameObject:
   m_ObjectHideFlags: 0
