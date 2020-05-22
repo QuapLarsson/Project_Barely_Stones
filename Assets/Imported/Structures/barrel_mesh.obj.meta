@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33fc41e431db4954286249b57d013642
+guid: 53a2bbe78b181374db1a24eab16ecb03
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 6b7dd59fbca73f940a4355d4a169bb43, type: 2}
+      name: barrel_meshMat
+    second: {fileID: 2100000, guid: 50d1e3dadb0176c47a14bd2ac2279ed2, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
