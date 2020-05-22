@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 33fc41e431db4954286249b57d013642
+guid: ec8de1c0a58db984eb202a235f0cd63b
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: 6b7dd59fbca73f940a4355d4a169bb43, type: 2}
+      name: spruce_bark_texture01
+    second: {fileID: 2100000, guid: 5c4e2d182abcc6b4d868953bb9682d1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: spruce_needles_texture01
+    second: {fileID: 2100000, guid: cfaf10937daffce478770c29be623bbc, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
