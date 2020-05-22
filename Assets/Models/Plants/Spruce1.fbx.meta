@@ -14,16 +14,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: spruce_needles_texture01
     second: {fileID: 2100000, guid: cfaf10937daffce478770c29be623bbc, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Spruce Bark_Base Color
-    second: {fileID: 2800000, guid: e97110ad573154e488cae048a21c807e, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: spruce_needles_texture_1
-    second: {fileID: 2800000, guid: efd3df38a46f5274d80afc7de356fc3f, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0
