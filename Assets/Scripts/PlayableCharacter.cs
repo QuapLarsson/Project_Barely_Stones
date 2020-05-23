@@ -16,7 +16,6 @@ public class PlayableCharacter : MonoBehaviour
 
     private void Update()
     {
-        //gameObject.GetComponent<CapsuleCollider>().transform.position = navMeshAgent.transform.position;
     }
 
     public void MoveTo(Vector3 position, TileGrid tileGrid)
