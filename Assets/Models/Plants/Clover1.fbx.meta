@@ -3,7 +3,12 @@ guid: facadabdb0c1125488694453d576d333
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: clover_high_material_1
+    second: {fileID: 2100000, guid: 00a906a9a1cf9024a9bc286a397be536, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

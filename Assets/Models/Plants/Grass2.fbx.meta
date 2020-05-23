@@ -7,7 +7,7 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Grass Texture 2
+      name: grass_material_2
     second: {fileID: 2100000, guid: a5c0123455f6fcd4d924c364883192dd, type: 2}
   materials:
     materialImportMode: 1
