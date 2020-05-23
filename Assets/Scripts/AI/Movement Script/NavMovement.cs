@@ -75,11 +75,6 @@ namespace Barely.AI.Movement
             RunMultiplier = Mathf.Max(RunMultiplier, 0);
         }
 
-        //private void Update()
-        //{
-        //    Debug.Log(_agent.hasPath + " " + FSM.State);
-        //}
-
         protected virtual void Awake()
         {
             _path = new NavMeshPath();
