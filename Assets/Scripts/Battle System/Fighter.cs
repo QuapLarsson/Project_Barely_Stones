@@ -16,11 +16,7 @@ public class Fighter : MonoBehaviour
     public int myCurrentHP = 0;
     public int myGuts = 0;
     //Stat Block End
-
-    //Equipment Block Start
-    public Weapon myWeapon;
-    public Armour myArmour;
-    //Equipment Block End
+    
 
     float myAnimationTime = 1f;
     public Renderer myRenderer;
@@ -28,8 +24,6 @@ public class Fighter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myWeapon.MakeSword();
-        myArmour.MakeLeather();
     }
 
     public bool TakeDamage(int aAmount)

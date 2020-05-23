@@ -78,11 +78,11 @@ public class BattleManager : MonoBehaviour
         int attackerTotalPower;
         int defenderTotalDefence;
 
-        attackerTotalPower = a_ActiveFighter.myPower + a_ActiveFighter.myWeapon.myPower;
-        defenderTotalDefence = a_InactiveFighter.myDefence + a_InactiveFighter.myArmour.myDefence;
+        attackerTotalPower = a_ActiveFighter.myPower;
+        defenderTotalDefence = a_InactiveFighter.myDefence;
 
         //Adjust damage rate based on damage and armour types used
-        switch (a_ActiveFighter.myWeapon.myDamageType)
+        /*switch (a_ActiveFighter.myWeapon.myDamageType)
         {
             case DamageType.Slashing:
                 switch (a_InactiveFighter.myArmour.myArmourType)
@@ -146,7 +146,7 @@ public class BattleManager : MonoBehaviour
                 break;
             default:
                 break;
-        }
+        }*/
 
         //Adjust damage rate based on attack vs defence 
         if (attackerTotalPower >= (2 * defenderTotalDefence))

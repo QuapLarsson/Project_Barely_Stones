@@ -13,7 +13,6 @@ public class CombatController : MonoBehaviour
     Pathfinding pathfinding;
     PlayableCharacter selectedUnit;
     public Camera myMainCamera;
-    public Camera myCombatCamera;
     public BattleManager myBattleManager;
 
     int turnCount;
@@ -24,11 +23,6 @@ public class CombatController : MonoBehaviour
     List<Tile> enemyTiles;
 
     //TEMP: Materials for highlighting which unit is selected TODO: Not use material as a highlight for selectedUnit
-    Material unitMat;
-    [SerializeField] Material unitHighlightMat;
-    Material enemyMat;
-    [SerializeField] Material enemyHighlightMat;
-
     [SerializeField] GameObject tileHighlighter;
     [SerializeField] GameObject moveableTileHighlighter;
     List<GameObject> moveableTileHighlighters = new List<GameObject>();
@@ -40,8 +34,6 @@ public class CombatController : MonoBehaviour
     void Awake()
     {
         //TEMP: Find the original material for a PlayableCharacter
-        unitMat = FindObjectOfType<PlayableCharacter>().gameObject.GetComponent<Renderer>().material;
-        enemyMat = FindObjectOfType<Enemy>().gameObject.GetComponent<Renderer>().material;
         enemies = FindObjectsOfType<Enemy>();
     }
 
@@ -60,7 +52,6 @@ public class CombatController : MonoBehaviour
         {
             tileGrid.GetTileAt(unit.transform.position).isWalkable = false;
         }
-        myCombatCamera.enabled = false;
     }
 
     void Update()
@@ -101,13 +92,7 @@ public class CombatController : MonoBehaviour
                         if (character == unitHit)
                         {
                             //TEMP: Changes the material of the selectedUnit and changes back the material of the previous selectedUnit
-                            if (selectedUnit != null)
-                            {
-                                selectedUnit.GetComponent<Renderer>().material = unitMat;
-                            }
-
                             selectedUnit = unitHit;
-                            selectedUnit.GetComponent<Renderer>().material = unitHighlightMat;
                             selectedUnit.CalculateWalkableTiles(pathfinding, tileGrid);
                             HighlightMoveableTiles(selectedUnit.walkableTiles);
                         }
@@ -137,7 +122,6 @@ public class CombatController : MonoBehaviour
                                 selectedUnit.MoveTo(moveablePosition, tileGrid);
 
                                 unitsToMove[i] = null;
-                                selectedUnit.GetComponent<Renderer>().material = unitMat;
                                 selectedUnit = null;
                                 HideMoveableTiles();
                             }
@@ -163,8 +147,6 @@ public class CombatController : MonoBehaviour
                         if (tileGrid.GetTileAt(enemies[i].transform.position) == tile)
                         {
                             Debug.Log(string.Format("Attacked {0}", enemies[i].name));
-                            myCombatCamera.enabled = true;
-                            myMainCamera.enabled = false;
                             GameObject temp = enemies[i].gameObject;
                             myBattleManager.Init(ref temp);
                             //myBattleManager.Init();
@@ -172,11 +154,6 @@ public class CombatController : MonoBehaviour
                     }
 
                     isAttacking = false;
-
-                    foreach (Enemy enemy in enemies)
-                    {
-                        enemy.GetComponent<Renderer>().material = enemyMat;
-                    }
                 }
             }
         }
@@ -220,11 +197,7 @@ public class CombatController : MonoBehaviour
         {
             enemy.UseTurn(unitsToMove, tileGrid, pathfinding);
         }
-
-        for (int i = 0; i < unitsToMove.Length; i++)
-        {
-            unitsToMove[i].GetComponent<Renderer>().material = unitMat;
-        }
+        
 
         selectedUnit = null;
         turnCount++;
@@ -264,7 +237,6 @@ public class CombatController : MonoBehaviour
                 {
                     if (tileGrid.GetTileAt(enemies[j].transform.position) == enemyTiles[i])
                     {
-                        enemies[j].GetComponent<Renderer>().material = enemyHighlightMat;
                     }
                 }
             }
