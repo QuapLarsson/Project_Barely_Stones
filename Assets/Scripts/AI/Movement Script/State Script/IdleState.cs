@@ -17,7 +17,7 @@ namespace Barely.AI.Movement
 
             while (true)
             {
-                if (!_agent.isOnDestination(Threshold))
+                if (_agent.hasPath)
                 {
                     FSM.ChangeState(States.Walk);
                     yield break;
