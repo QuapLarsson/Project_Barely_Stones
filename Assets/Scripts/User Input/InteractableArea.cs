@@ -14,7 +14,7 @@ using System.Threading;
 namespace Barely.UserInput
 {
     /// <summary>
-    /// Player movement.
+    /// Execute script if clicked on and inside of an certain distance.
     /// </summary>
     /// <remarks>Made by Celezt.</remarks>
     [AddComponentMenu("Barely/User Input/InteractableArea")]
@@ -43,10 +43,10 @@ namespace Barely.UserInput
 
             while (true)
             {
-                //Debug.Log("Calculate");
-                bool noTarget = false;
-                for (int i = 0; i < movement.Length; i++) // Look through all objects in the scene that contains NavMovement
-                    if (Vector3.Distance(movement[i].Target, transform.position) < MinimumDistance)
+                bool noTarget = true;
+
+                for (int i = 0; i < movement.Length; i++)
+                    if (movement[i].TargetObject == this || movement[i].TargetObject == GetComponentInChildren(typeof(Collider)).gameObject)
                     {
                         noTarget = false;
 
