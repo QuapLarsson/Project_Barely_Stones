@@ -28,6 +28,7 @@ namespace Barely.UserInput
         private void OnValidate()
         {
             MinimumDistance = Mathf.Max(MinimumDistance, 0);
+            CalculateFrequency = Mathf.Max(CalculateFrequency, 0);
         }
 
         public void OnCalled()
