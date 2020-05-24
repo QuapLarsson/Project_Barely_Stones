@@ -17,12 +17,12 @@ namespace Barely.AI.Movement
 
             while (true)
             {
-                if (_agent.isOnDestination(Threshold))
+                if (!_agent.hasPath)
                 {
                     FSM.ChangeState(States.Idle);
                     yield break;
                 }
-                else if (PathLength >= DistanceToRun)
+                else if (LastPathLength >= DistanceToRun)
                 {
                     FSM.ChangeState(States.Run);
                     yield break;
