@@ -40,6 +40,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(PauseManager.pauseState);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             EscapeButton();
