@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3450271299759829123}
   - component: {fileID: 5961312114267638453}
   - component: {fileID: 109877099739493964}
+  - component: {fileID: 845530272247803630}
   m_Layer: 0
   m_Name: spruceLog1
   m_TagString: Untagged
@@ -80,3 +81,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &845530272247803630
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853946682710819472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.37720478, y: 2.1026602, z: 0.39434254}
+  m_Center: {x: -0.004988633, y: 1.0502536, z: 0.00022605807}
