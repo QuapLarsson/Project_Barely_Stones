@@ -23,9 +23,18 @@ namespace Barely.AI.Movement
         protected float _speed;
         protected Vector3 _target;
         protected GameObject _targetObject;
+        protected bool _pause;
 
         #region Public properties
         public StateMachine<States> FSM { get; set; }
+        /// <summary>
+        /// Pause NavMesh.
+        /// </summary>
+        public bool Pause
+        {
+            get => _pause;
+            set => _pause = value;
+        }
         /// <summary>
         /// Path's target.
         /// </summary>
@@ -58,14 +67,13 @@ namespace Barely.AI.Movement
         /// </summary>
         public float LastPathLength { get; private set; }
         /// <summary>
-        /// Get new path length (does not effect NavMovement).
+        /// Get new path length (does not affect NavMovement).
         /// </summary>
         public float CurrentPathLength { get => _agent.path.GetPathLength(); }
         /// <summary>
         /// Update path length.
         /// </summary>
         public float UpdatePathLength { get => LastPathLength = _agent.path.GetPathLength(); }
-        //public bool Pause { set => PauseManager }
         #endregion
         #region Exposed To Inspector
         [Header("NavMesh")]
@@ -107,10 +115,16 @@ namespace Barely.AI.Movement
         /// <returns>If the path was found.</returns>
         public bool GetDestination(Vector3 target)
         {
-            bool pathFound = _agent.CalculatePath(target, _path, NavMesh.AllAreas);
-            _target = target;
-            LastPathLength = _agent.path.GetPathLength();
-            return pathFound;
+            if (_pause)
+            {
+                bool pathFound = _agent.CalculatePath(target, _path, NavMesh.AllAreas);
+                _target = target;
+                LastPathLength = _agent.path.GetPathLength();
+
+                return pathFound;
+            }
+
+            return false;
         }
         /// <summary>
         /// Get target game object.
@@ -135,6 +149,11 @@ namespace Barely.AI.Movement
         /// Reset the current path.
         /// </summary>
         public void ResetPath() => _agent.ResetPath();
+        public void SetPause(bool state)
+        {
+            //_pause = true;
+            //_agent.isStopped();
+        }
         #endregion
     }
 }
