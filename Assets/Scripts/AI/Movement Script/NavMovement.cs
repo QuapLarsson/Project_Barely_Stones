@@ -143,7 +143,11 @@ namespace Barely.AI.Movement
         /// <summary>
         /// Reset the current path.
         /// </summary>
-        public void ResetPath() => _agent.ResetPath();
+        public void ResetPath()
+        {
+            _agent.ResetPath();
+            _targetObject = null;
+        }
         /// <summary>
         /// Pause NavMesh.
         /// </summary>
