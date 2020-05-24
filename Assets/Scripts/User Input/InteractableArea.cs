@@ -38,19 +38,19 @@ namespace Barely.UserInput
 
         private IEnumerator OnDestination()
         {
-            NavMovement[] movement = (NavMovement[])FindObjectsOfType(typeof(NavMovement));
+            NavMovement[] movements = (NavMovement[])FindObjectsOfType(typeof(NavMovement));
             WaitForSeconds wait = new WaitForSeconds(CalculateFrequency);
 
             while (true)
             {
                 bool noTarget = true;
 
-                for (int i = 0; i < movement.Length; i++)
-                    if (movement[i].TargetObject == this || movement[i].TargetObject == GetComponentInChildren(typeof(Collider)).gameObject)
+                for (int i = 0; i < movements.Length; i++) // Loop through all NavMovement objects
+                    if (movements[i].TargetObject == this || movements[i].TargetObject == GetComponentInChildren(typeof(Collider)).gameObject)
                     {
                         noTarget = false;
 
-                        if (movement[i].CurrentPathLength < MinimumDistance)
+                        if (movements[i].CurrentPathLength < MinimumDistance)
                         {
                             _onInteract.Invoke();
                             yield break;
