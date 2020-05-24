@@ -43,8 +43,8 @@ namespace Barely.UserInput
 
             while (true)
             {
-                Debug.Log("Calculate");
-                bool noTarget = true;
+                //Debug.Log("Calculate");
+                bool noTarget = false;
                 for (int i = 0; i < movement.Length; i++) // Look through all objects in the scene that contains NavMovement
                     if (Vector3.Distance(movement[i].Target, transform.position) < MinimumDistance)
                     {
@@ -58,7 +58,10 @@ namespace Barely.UserInput
                     }
 
                 if (noTarget)
+                {
+                    //Debug.Log("No target break.");
                     yield break;
+                }
 
                 yield return wait;
             }
