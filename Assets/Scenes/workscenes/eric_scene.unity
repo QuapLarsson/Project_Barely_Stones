@@ -236,7 +236,7 @@ Transform:
   m_Children:
   - {fileID: 1023079061493312494}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &150520381 stripped
 Transform:
@@ -244,27 +244,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1739649721}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &199487738 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6357165815383068322, guid: 8513b82f109a31346a3b366e5391ae4a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1873483393}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &199487740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 199487738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 256a116703cb6d34d90d1278ea37e088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Accessible:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!4 &640293115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1047511405638424331, guid: 810e698755ce2a04197eb238fb471e46,
@@ -1212,75 +1191,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7d27967f71626e449f884d3c1043a63, type: 3}
---- !u!1001 &1873483393
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 23.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3290886787650225673, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6631615207602062533, guid: 8513b82f109a31346a3b366e5391ae4a,
-        type: 3}
-      propertyPath: m_Name
-      value: MainCharacter
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8513b82f109a31346a3b366e5391ae4a, type: 3}
 --- !u!4 &1919399438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2995782260341112399, guid: ce23fa653b037b8448945869b7193024,

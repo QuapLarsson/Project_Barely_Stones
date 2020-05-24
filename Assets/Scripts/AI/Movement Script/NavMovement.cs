@@ -22,16 +22,41 @@ namespace Barely.AI.Movement
 
         protected float _speed;
         protected Vector3 _target;
+        protected GameObject _targetObject;
+        protected bool _pause;
 
         #region Public properties
         public StateMachine<States> FSM { get; set; }
+        /// <summary>
+        /// Pause NavMesh.
+        /// </summary>
+        public bool Pause
+        {
+            get => _pause;
+            set => SetPause(value);
+        }
         /// <summary>
         /// Path's target.
         /// </summary>
         public Vector3 Target
         {
             get =>  _target;
-            set => CalculateDestination(value);
+            set => GetDestination(value);
+        }
+        /// <summary>
+        /// Target object.
+        /// </summary>
+        public GameObject TargetObject
+        {
+            get => _targetObject;
+            set => GetTargetObject(value);
+        }
+        /// <summary>
+        /// Target's raycast. Set target object and target destination.
+        /// </summary>
+        public RaycastHit RayCast
+        {
+            set => GetRayCast(value);
         }
         /// <summary>
         /// Look if agent is on destination.
@@ -42,17 +67,13 @@ namespace Barely.AI.Movement
         /// </summary>
         public float LastPathLength { get; private set; }
         /// <summary>
-        /// Get new path length (does not effect NavMovement).
+        /// Get new path length (does not affect NavMovement).
         /// </summary>
         public float CurrentPathLength { get => _agent.path.GetPathLength(); }
         /// <summary>
         /// Update path length.
         /// </summary>
         public float UpdatePathLength { get => LastPathLength = _agent.path.GetPathLength(); }
-        /// <summary>
-        /// Reset the current path.
-        /// </summary>
-        public void ResetPath() => _agent.ResetPath();
         #endregion
         #region Exposed To Inspector
         [Header("NavMesh")]
@@ -92,13 +113,46 @@ namespace Barely.AI.Movement
         /// </summary>
         /// <param name="target">New position.</param>
         /// <returns>If the path was found.</returns>
-        public bool CalculateDestination(Vector3 target)
+        public bool GetDestination(Vector3 target)
         {
             bool pathFound = _agent.CalculatePath(target, _path, NavMesh.AllAreas);
             _target = target;
             LastPathLength = _agent.path.GetPathLength();
+
             return pathFound;
         }
+        /// <summary>
+        /// Get target game object.
+        /// </summary>
+        /// <param name="hit">Raycast hit.</param>
+        /// <returns>If not null.</returns>
+        public bool GetTargetObject(RaycastHit hit) => GetTargetObject(hit.transform.gameObject);
+        /// <summary>
+        /// Get target game object.
+        /// </summary>
+        /// <param name="hit">Game object.</param>
+        /// <returns>If not null.</returns>
+        public bool GetTargetObject(GameObject gameObject) => _targetObject = gameObject;
+        /// <summary>
+        /// Get raycast and set target object and target destination.
+        /// </summary>
+        /// <param name="hit">Raycast.</param>
+        /// <returns>Return if both point and game object is not null.</returns>
+        public bool GetRayCast(RaycastHit hit)
+            => GetTargetObject(hit) && ((hit.transform.gameObject.layer == LayerMask.NameToLayer("Walkable")) ? GetDestination(hit.point) : GetDestination(hit.transform.position));
+        /// <summary>
+        /// Reset the current path.
+        /// </summary>
+        public void ResetPath()
+        {
+            _agent.ResetPath();
+            _targetObject = null;
+        }
+        /// <summary>
+        /// Pause NavMesh.
+        /// </summary>
+        /// <param name="state">Pause state.</param>
+        public void SetPause(bool state) => _pause = _agent.isStopped = state;
         #endregion
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8944706449521640666}
   - component: {fileID: 3394995539386431523}
   m_Layer: 0
-  m_Name: Grass2
+  m_Name: Grass02_terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -39,7 +39,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3972637182001925375}
-  m_Mesh: {fileID: 3044160006922228130, guid: 39053c091ab81cb4f9ea7f7c75ec35a6, type: 3}
+  m_Mesh: {fileID: -1672762796734252705, guid: 39053c091ab81cb4f9ea7f7c75ec35a6, type: 3}
 --- !u!23 &3394995539386431523
 MeshRenderer:
   m_ObjectHideFlags: 0

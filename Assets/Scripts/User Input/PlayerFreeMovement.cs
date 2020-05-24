@@ -40,7 +40,7 @@ namespace Barely.UserInput
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
                 if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity))
-                    _movement.Target = hit.point;
+                    _movement.RayCast = hit;
             }
 
             IEnumerator Hold()
@@ -53,14 +53,18 @@ namespace Barely.UserInput
 
             while (true)
             {
-                if (Input.GetMouseButtonDown(_mousebutton))
+                if (PauseManager.pauseState == PauseManager.PauseState.Playing)
                 {
-                    MouseAction();
-                    yield return new WaitForSeconds(0.2f);
+                    
+                    if (Input.GetMouseButtonDown(_mousebutton))
+                    {
+                        MouseAction();
+                        yield return new WaitForSeconds(0.2f);
+                    }
+                    else if (Input.GetMouseButton(_mousebutton))
+                        if (!_executeCoroutine)
+                            StartCoroutine(Hold());
                 }
-                else if (Input.GetMouseButton(_mousebutton))
-                    if (!_executeCoroutine)
-                        StartCoroutine(Hold());
 
                 yield return new WaitForFixedUpdate();
             }
