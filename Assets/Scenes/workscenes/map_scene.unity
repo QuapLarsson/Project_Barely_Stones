@@ -2854,6 +2854,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: barrel_mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 1363595626197565708, guid: 53a2bbe78b181374db1a24eab16ecb03,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50d1e3dadb0176c47a14bd2ac2279ed2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53a2bbe78b181374db1a24eab16ecb03, type: 3}
 --- !u!4 &1582773176 stripped
