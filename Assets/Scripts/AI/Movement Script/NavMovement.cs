@@ -36,19 +36,29 @@ namespace Barely.AI.Movement
         /// <summary>
         /// Look if agent is on destination.
         /// </summary>
-        public bool IsOnDestination { get => CalculateIsOnDestination(); }
+        public bool IsOnDestination { get => !_agent.hasPath; }
         /// <summary>
         /// Length of the current destination.
         /// </summary>
-        public float PathLength { get; private set; }
+        public float LastPathLength { get; private set; }
+        /// <summary>
+        /// Get new path length (does not effect NavMovement).
+        /// </summary>
+        public float CurrentPathLength { get => _agent.path.GetPathLength(); }
+        /// <summary>
+        /// Update path length.
+        /// </summary>
+        public float UpdatePathLength { get => LastPathLength = _agent.path.GetPathLength(); }
+        /// <summary>
+        /// Reset the current path.
+        /// </summary>
+        public void ResetPath() => _agent.ResetPath();
         #endregion
         #region Exposed To Inspector
         [Header("NavMesh")]
 
         [Tooltip("Calculate the time between each path calculation in seconds.")]
         public float CalculationDelay = 0.2f;
-        [Tooltip("Distance from destination before stopping.")]
-        public float Threshold = 0.01f;
 
         [Header("Movement")]
 
@@ -61,7 +71,6 @@ namespace Barely.AI.Movement
         protected virtual void OnValidate()
         {
             CalculationDelay = Mathf.Max(CalculationDelay, 0);
-            Threshold = Mathf.Max(Threshold, 0);
             DistanceToRun = Mathf.Max(DistanceToRun, 0);
             RunMultiplier = Mathf.Max(RunMultiplier, 0);
         }
@@ -87,14 +96,9 @@ namespace Barely.AI.Movement
         {
             bool pathFound = _agent.CalculatePath(target, _path, NavMesh.AllAreas);
             _target = target;
-            PathLength = _agent.path.GetPathLength();
+            LastPathLength = _agent.path.GetPathLength();
             return pathFound;
         }
-        /// <summary>
-        /// Calculate if on destination.
-        /// </summary>
-        /// <returns>If on destination.</returns>
-        public bool CalculateIsOnDestination() => _agent.isOnDestination(Threshold);
         #endregion
     }
 }

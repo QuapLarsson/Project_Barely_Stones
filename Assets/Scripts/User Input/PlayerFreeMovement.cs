@@ -21,11 +21,6 @@ namespace Barely.UserInput
 
         private int _mousebutton = 0;
 
-        #region Exposed To Inspector
-        [Tooltip("What layer that is accessible.")]
-        public LayerMask Accessible;
-        #endregion
-
         private void Awake()
         {
             _movement = GetComponent<NavMovement>();
@@ -44,7 +39,7 @@ namespace Barely.UserInput
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity, Accessible))
+                if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity))
                     _movement.Target = hit.point;
             }
 
