@@ -55,6 +55,7 @@ namespace Barely.UserInput
             {
                 if (PauseManager.pauseState == PauseManager.PauseState.Playing)
                 {
+                    
                     if (Input.GetMouseButtonDown(_mousebutton))
                     {
                         MouseAction();
