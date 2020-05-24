@@ -33,7 +33,7 @@ namespace Barely.AI.Movement
         public bool Pause
         {
             get => _pause;
-            set => _pause = value;
+            set => SetPause(value);
         }
         /// <summary>
         /// Path's target.
@@ -149,11 +149,11 @@ namespace Barely.AI.Movement
         /// Reset the current path.
         /// </summary>
         public void ResetPath() => _agent.ResetPath();
-        public void SetPause(bool state)
-        {
-            //_pause = true;
-            //_agent.isStopped();
-        }
+        /// <summary>
+        /// Pause NavMesh.
+        /// </summary>
+        /// <param name="state">Pause state.</param>
+        public void SetPause(bool state) => _pause = _agent.isStopped = state;
         #endregion
     }
 }
