@@ -12,7 +12,6 @@ public class CombatController : MonoBehaviour
     [SerializeField] Vector3 gridOrigin;
     Pathfinding pathfinding;
     PlayableCharacter selectedUnit;
-    public Camera myMainCamera;
     public BattleManager myBattleManager;
 
     int turnCount;
@@ -33,12 +32,12 @@ public class CombatController : MonoBehaviour
 
     void Awake()
     {
-        //TEMP: Find the original material for a PlayableCharacter
         enemies = FindObjectsOfType<Enemy>();
     }
 
     void Start()
     {
+        enemies = FindObjectsOfType<Enemy>();
         tileGrid = new TileGrid(gridWidth, gridHeight, tileSize, gridOrigin);
         pathfinding = new Pathfinding(tileGrid);
         NextTurn();
@@ -61,8 +60,15 @@ public class CombatController : MonoBehaviour
         if (Physics.Raycast(mouseRay, out rayHit, float.PositiveInfinity) && !EventSystem.current.IsPointerOverGameObject())
         {
             Tile tile = tileGrid.GetTileAt(rayHit.point);
-            Vector3 tilePosition = tileGrid.GetCenterPointOfTile(tile);
-            tileHighlighter.transform.position = new Vector3(tilePosition.x, 0.75f, tilePosition.z);
+            Vector3 tilePosition = Vector3.zero;
+            if (tile != null)
+            {
+                tilePosition = tileGrid.GetCenterPointOfTile(tile);
+            }
+            if (tilePosition != Vector3.zero)
+            {
+                tileHighlighter.transform.position = new Vector3(tilePosition.x, 0.75f, tilePosition.z);
+            }
         }
 
         if (isAttacking)
@@ -148,8 +154,7 @@ public class CombatController : MonoBehaviour
                         {
                             Debug.Log(string.Format("Attacked {0}", enemies[i].name));
                             GameObject temp = enemies[i].gameObject;
-                            myBattleManager.Init(ref temp);
-                            //myBattleManager.Init();
+                            StartCoroutine(myBattleManager.Init(selectedUnit.GetComponent<Fighter>(), temp));
                         }
                     }
 
@@ -195,7 +200,7 @@ public class CombatController : MonoBehaviour
 
         foreach (Enemy enemy in enemies)
         {
-            enemy.UseTurn(unitsToMove, tileGrid, pathfinding);
+            //enemy.UseTurn(unitsToMove, tileGrid, pathfinding);
         }
         
 
