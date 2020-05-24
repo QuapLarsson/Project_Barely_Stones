@@ -58,7 +58,10 @@ namespace Barely.UserInput
                     }
 
                 if (noTarget)
+                {
+                    //Debug.Log("No target break.");
                     yield break;
+                }
 
                 yield return wait;
             }
