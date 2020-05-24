@@ -115,16 +115,11 @@ namespace Barely.AI.Movement
         /// <returns>If the path was found.</returns>
         public bool GetDestination(Vector3 target)
         {
-            if (_pause)
-            {
-                bool pathFound = _agent.CalculatePath(target, _path, NavMesh.AllAreas);
-                _target = target;
-                LastPathLength = _agent.path.GetPathLength();
+            bool pathFound = _agent.CalculatePath(target, _path, NavMesh.AllAreas);
+            _target = target;
+            LastPathLength = _agent.path.GetPathLength();
 
-                return pathFound;
-            }
-
-            return false;
+            return pathFound;
         }
         /// <summary>
         /// Get target game object.
