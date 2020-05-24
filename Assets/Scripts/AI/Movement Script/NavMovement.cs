@@ -65,10 +65,7 @@ namespace Barely.AI.Movement
         /// Update path length.
         /// </summary>
         public float UpdatePathLength { get => LastPathLength = _agent.path.GetPathLength(); }
-        /// <summary>
-        /// Reset the current path.
-        /// </summary>
-        public void ResetPath() => _agent.ResetPath();
+        //public bool Pause { set => PauseManager }
         #endregion
         #region Exposed To Inspector
         [Header("NavMesh")]
@@ -134,6 +131,10 @@ namespace Barely.AI.Movement
         /// <returns>Return if both point and game object is not null.</returns>
         public bool GetRayCast(RaycastHit hit)
             => GetTargetObject(hit) && ((hit.transform.gameObject.layer == LayerMask.NameToLayer("Walkable")) ? GetDestination(hit.point) : GetDestination(hit.transform.position));
+        /// <summary>
+        /// Reset the current path.
+        /// </summary>
+        public void ResetPath() => _agent.ResetPath();
         #endregion
     }
 }
