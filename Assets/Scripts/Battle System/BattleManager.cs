@@ -53,12 +53,14 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         m_InactiveFighterHPBar.gameObject.SetActive(true);
         m_ActiveFighterHPBar.gameObject.SetActive(true);
+        m_IsAnimating = true;
         DealDamage(m_ActiveFighter, m_InactiveFighter);
         yield return new WaitForSeconds(3);
         m_MainCamera.RestoreCamera();
         m_ActiveFighterHPBar.gameObject.SetActive(false);
         m_InactiveFighterHPBar.gameObject.SetActive(false);
         yield return new WaitForSeconds(1);
+        m_IsAnimating = false;
         yield return 0;
     }
 
@@ -172,7 +174,6 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator InactiveFighterHPBarDepletion(float aTargetVal)
     {
-        m_IsAnimating = true;
         while (m_InactiveFighterHPBar.value > aTargetVal)
         {
             if (m_InactiveFighterHPBar.value - aTargetVal < 0.1f)
@@ -190,8 +191,6 @@ public class BattleManager : MonoBehaviour
         {
             Destroy(m_InactiveFighterHPBar.transform.GetChild(1).GetChild(0).gameObject);
         }
-
-        m_IsAnimating = false;
         yield return 0;
     }
 }

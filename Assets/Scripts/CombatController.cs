@@ -200,7 +200,12 @@ public class CombatController : MonoBehaviour
 
         foreach (Enemy enemy in enemies)
         {
-            //enemy.UseTurn(unitsToMove, tileGrid, pathfinding);
+            enemy.UseTurn(unitsToMove, tileGrid, pathfinding);
+            PlayableCharacter target = enemy.FindAdjacentTarget(unitsToMove, tileGrid, pathfinding);
+            if (target != null)
+            {
+                myBattleManager.Init(enemy.GetComponent<Fighter>(), target.gameObject);
+            }
         }
         
 
