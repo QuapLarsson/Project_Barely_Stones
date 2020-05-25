@@ -61,7 +61,7 @@ public class CharacterStats
         switch (characterType)
         {
             case CharacterType.MainCharacter:
-                name = "Main";
+                name = "Mulle";
                 level = PlayerStats.instance.activePartyData.mainCharacterLevel;
                 movement = 5;
                 health = 100;
@@ -77,7 +77,7 @@ public class CharacterStats
                 CalculateNewStats();
                 break;
             case CharacterType.MemberTwo:
-                name = "Tank";
+                name = "Jenny";
                 level = PlayerStats.instance.activePartyData.secondCharacterLevel;
                 movement = 3;
                 health = 200;
@@ -93,7 +93,7 @@ public class CharacterStats
                 CalculateNewStats();
                 break;
             case CharacterType.MemberThree:
-                name = "Ranged";
+                name = "Steinn";
                 level = PlayerStats.instance.activePartyData.thirdCharacterLevel;
                 movement = 7;
                 health = 70;
