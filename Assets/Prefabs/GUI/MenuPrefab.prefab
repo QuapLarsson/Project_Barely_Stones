@@ -63,7 +63,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Char Four
+  m_text: Morrigan
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ca0fc1a030f376e468398fcb15cb22fc, type: 2}
   m_sharedMaterial: {fileID: -3866900808221909222, guid: ca0fc1a030f376e468398fcb15cb22fc,
@@ -133,10 +133,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 6162623931581071384}
-    characterCount: 9
+    characterCount: 8
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -1753,7 +1753,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Char One
+  m_text: Mulle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ca0fc1a030f376e468398fcb15cb22fc, type: 2}
   m_sharedMaterial: {fileID: -3866900808221909222, guid: ca0fc1a030f376e468398fcb15cb22fc,
@@ -1823,10 +1823,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 8885049322047162306}
-    characterCount: 8
+    characterCount: 5
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -2370,7 +2370,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Char Two
+  m_text: Jenny
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ca0fc1a030f376e468398fcb15cb22fc, type: 2}
   m_sharedMaterial: {fileID: -3866900808221909222, guid: ca0fc1a030f376e468398fcb15cb22fc,
@@ -2440,10 +2440,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5209720689823033193}
-    characterCount: 8
+    characterCount: 5
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -2785,7 +2785,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Char Three
+  m_text: Steinn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ca0fc1a030f376e468398fcb15cb22fc, type: 2}
   m_sharedMaterial: {fileID: -3866900808221909222, guid: ca0fc1a030f376e468398fcb15cb22fc,
@@ -2855,10 +2855,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 5800584131860456113}
-    characterCount: 10
+    characterCount: 6
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1
