@@ -284,9 +284,11 @@ public class DialogueManager : MonoBehaviour
     {
         textBatches.Clear();
         dialogueQueue.Clear();
+        dialogueText.text = "";
         leftName.SetActive(false);
         rightName.SetActive(false);
         boxAnimator.SetBool("isOpen", false);
+        PauseManager.SetPauseState(PauseManager.PauseState.Playing);
     }
 
     

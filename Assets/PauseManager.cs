@@ -18,7 +18,7 @@ public static class PauseManager
     {
         pauseState = state;
     }
-
+    
     public static bool IsPauseState(PauseState state)
     {
         if (state == pauseState)

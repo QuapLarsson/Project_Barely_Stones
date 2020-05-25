@@ -14,7 +14,7 @@ using System.Threading;
 namespace Barely.UserInput
 {
     /// <summary>
-    /// Player movement.
+    /// Execute script if clicked on and inside of an certain distance.
     /// </summary>
     /// <remarks>Made by Celezt.</remarks>
     [AddComponentMenu("Barely/User Input/InteractableArea")]
@@ -28,6 +28,7 @@ namespace Barely.UserInput
         private void OnValidate()
         {
             MinimumDistance = Mathf.Max(MinimumDistance, 0);
+            CalculateFrequency = Mathf.Max(CalculateFrequency, 0);
         }
 
         public void OnCalled()
@@ -38,19 +39,19 @@ namespace Barely.UserInput
 
         private IEnumerator OnDestination()
         {
-            NavMovement[] movement = (NavMovement[])FindObjectsOfType(typeof(NavMovement));
+            NavMovement[] movements = (NavMovement[])FindObjectsOfType(typeof(NavMovement));
             WaitForSeconds wait = new WaitForSeconds(CalculateFrequency);
 
             while (true)
             {
-                Debug.Log("Calculate");
                 bool noTarget = true;
-                for (int i = 0; i < movement.Length; i++) // Look through all objects in the scene that contains NavMovement
-                    if (Vector3.Distance(movement[i].Target, transform.position) < MinimumDistance)
+
+                for (int i = 0; i < movements.Length; i++) // Loop through all NavMovement objects
+                    if (movements[i].TargetObject == this || movements[i].TargetObject == GetComponentInChildren(typeof(Collider)).gameObject)
                     {
                         noTarget = false;
 
-                        if (movement[i].CurrentPathLength < MinimumDistance)
+                        if (movements[i].CurrentPathLength < MinimumDistance)
                         {
                             _onInteract.Invoke();
                             yield break;
