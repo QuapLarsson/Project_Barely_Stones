@@ -94,11 +94,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Version: 2
   m_Material: {fileID: 2100000, guid: cd9e6645741fc9247b8a5e6f45010408, type: 2}
-  m_DrawDistance: 1000
+  m_DrawDistance: 2000
   m_FadeScale: 0.9
   m_UVScale: {x: 1, y: 1}
   m_UVBias: {x: 0, y: 0}
   m_AffectsTransparency: 0
   m_Offset: {x: 0, y: 0, z: 0.5}
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 100}
   m_FadeFactor: 1
