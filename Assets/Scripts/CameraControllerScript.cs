@@ -129,7 +129,7 @@ public class CameraControllerScript : MonoBehaviour
         averagePos.y = (a_FirstFighterPos.position.y + a_SecondFighterPos.position.y) / 2;
         averagePos.z = (a_FirstFighterPos.position.z + a_SecondFighterPos.position.z) / 2;
 
-        StartCoroutine(LerpFromTo(transform.position, averagePos, 1f));
+        StartCoroutine(LerpFromTo(transform.position, averagePos, a_FirstFighterPos, 1f));
     }
 
     public void RestoreCamera()
@@ -137,17 +137,17 @@ public class CameraControllerScript : MonoBehaviour
         StartCoroutine(ReturnLerp(transform.position, rememberedCameraPos, rememberedCameraRot, 1f));
     }
 
-    IEnumerator LerpFromTo(Vector3 pos1, Vector3 pos2, float duration)
+    IEnumerator LerpFromTo(Vector3 pos1, Vector3 pos2, Transform a_AttackerTransform, float duration)
     {
         m_cameraIsMoving = true;
         Transform temp = transform;
-        Vector3 cameraRight = transform.right;
+        Vector3 cameraRight = a_AttackerTransform.transform.right;
         //Get right direction in world space coord
         cameraRight = transform.InverseTransformDirection(cameraRight);
         //Remove up/down rotation
         cameraRight.y = 0;
         cameraRight.Normalize();
-        Vector3 target = pos2 + (cameraRight * 2);
+        Vector3 target = pos2 + (cameraRight * -2);
         temp.position = target;
         temp.LookAt(pos2, Vector3.up);
         StartCoroutine(RotateFromTo(transform.rotation, temp.rotation, duration));
