@@ -29,6 +29,7 @@ public class Fighter : MonoBehaviour
     public bool TakeDamage(int aAmount)
     {
         myCurrentHP -= aAmount;
+        Debug.Log("Oof, " + aAmount + " damage");
         if (myCurrentHP <= 0)
         {
             return true;
