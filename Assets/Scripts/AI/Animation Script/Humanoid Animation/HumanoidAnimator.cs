@@ -23,7 +23,6 @@ namespace Barely.AI.Animation
     {
         protected Animator _animator;
         protected NavMovement _movement;
-        protected Fighter _fighter;
 
         protected bool _newState;
 
@@ -43,7 +42,6 @@ namespace Barely.AI.Animation
         {
             _animator = GetComponent<Animator>();
             _movement = GetComponent<NavMovement>();
-            _fighter = GetComponent<Fighter>();
 
             FSM = StateMachine<States>.Initialize(this, States.Init);
 
