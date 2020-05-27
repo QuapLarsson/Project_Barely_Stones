@@ -12,8 +12,6 @@ public class CombatController : MonoBehaviour
     [SerializeField] Vector3 gridOrigin;
     Pathfinding pathfinding;
     PlayableCharacter selectedUnit;
-    public Camera myMainCamera;
-    public Camera myCombatCamera;
     public BattleManager myBattleManager;
 
     int turnCount;
@@ -24,11 +22,6 @@ public class CombatController : MonoBehaviour
     List<Tile> enemyTiles;
 
     //TEMP: Materials for highlighting which unit is selected TODO: Not use material as a highlight for selectedUnit
-    Material unitMat;
-    [SerializeField] Material unitHighlightMat;
-    Material enemyMat;
-    [SerializeField] Material enemyHighlightMat;
-
     [SerializeField] GameObject tileHighlighter;
     [SerializeField] GameObject moveableTileHighlighter;
     List<GameObject> moveableTileHighlighters = new List<GameObject>();
@@ -39,14 +32,12 @@ public class CombatController : MonoBehaviour
 
     void Awake()
     {
-        //TEMP: Find the original material for a PlayableCharacter
-        unitMat = FindObjectOfType<PlayableCharacter>().gameObject.GetComponent<Renderer>().material;
-        enemyMat = FindObjectOfType<Enemy>().gameObject.GetComponent<Renderer>().material;
         enemies = FindObjectsOfType<Enemy>();
     }
 
     void Start()
     {
+        enemies = FindObjectsOfType<Enemy>();
         tileGrid = new TileGrid(gridWidth, gridHeight, tileSize, gridOrigin);
         pathfinding = new Pathfinding(tileGrid);
         NextTurn();
@@ -60,7 +51,6 @@ public class CombatController : MonoBehaviour
         {
             tileGrid.GetTileAt(unit.transform.position).isWalkable = false;
         }
-        myCombatCamera.enabled = false;
     }
 
     void Update()
@@ -70,8 +60,15 @@ public class CombatController : MonoBehaviour
         if (Physics.Raycast(mouseRay, out rayHit, float.PositiveInfinity) && !EventSystem.current.IsPointerOverGameObject())
         {
             Tile tile = tileGrid.GetTileAt(rayHit.point);
-            Vector3 tilePosition = tileGrid.GetCenterPointOfTile(tile);
-            tileHighlighter.transform.position = new Vector3(tilePosition.x, 0.75f, tilePosition.z);
+            Vector3 tilePosition = Vector3.zero;
+            if (tile != null)
+            {
+                tilePosition = tileGrid.GetCenterPointOfTile(tile);
+            }
+            if (tilePosition != Vector3.zero)
+            {
+                tileHighlighter.transform.position = new Vector3(tilePosition.x, 0.75f, tilePosition.z);
+            }
         }
 
         if (isAttacking)
@@ -101,13 +98,7 @@ public class CombatController : MonoBehaviour
                         if (character == unitHit)
                         {
                             //TEMP: Changes the material of the selectedUnit and changes back the material of the previous selectedUnit
-                            if (selectedUnit != null)
-                            {
-                                selectedUnit.GetComponent<Renderer>().material = unitMat;
-                            }
-
                             selectedUnit = unitHit;
-                            selectedUnit.GetComponent<Renderer>().material = unitHighlightMat;
                             selectedUnit.CalculateWalkableTiles(pathfinding, tileGrid);
                             HighlightMoveableTiles(selectedUnit.walkableTiles);
                         }
@@ -137,7 +128,6 @@ public class CombatController : MonoBehaviour
                                 selectedUnit.MoveTo(moveablePosition, tileGrid);
 
                                 unitsToMove[i] = null;
-                                selectedUnit.GetComponent<Renderer>().material = unitMat;
                                 selectedUnit = null;
                                 HideMoveableTiles();
                             }
@@ -163,20 +153,12 @@ public class CombatController : MonoBehaviour
                         if (tileGrid.GetTileAt(enemies[i].transform.position) == tile)
                         {
                             Debug.Log(string.Format("Attacked {0}", enemies[i].name));
-                            myCombatCamera.enabled = true;
-                            myMainCamera.enabled = false;
                             GameObject temp = enemies[i].gameObject;
-                            myBattleManager.Init(ref temp);
-                            //myBattleManager.Init();
+                            StartCoroutine(myBattleManager.Init(selectedUnit.GetComponent<Fighter>(), temp));
                         }
                     }
 
                     isAttacking = false;
-
-                    foreach (Enemy enemy in enemies)
-                    {
-                        enemy.GetComponent<Renderer>().material = enemyMat;
-                    }
                 }
             }
         }
@@ -219,12 +201,13 @@ public class CombatController : MonoBehaviour
         foreach (Enemy enemy in enemies)
         {
             enemy.UseTurn(unitsToMove, tileGrid, pathfinding);
+            PlayableCharacter target = enemy.FindAdjacentTarget(unitsToMove, tileGrid, pathfinding);
+            if (target != null)
+            {
+                myBattleManager.Init(enemy.GetComponent<Fighter>(), target.gameObject);
+            }
         }
-
-        for (int i = 0; i < unitsToMove.Length; i++)
-        {
-            unitsToMove[i].GetComponent<Renderer>().material = unitMat;
-        }
+        
 
         selectedUnit = null;
         turnCount++;
@@ -264,7 +247,6 @@ public class CombatController : MonoBehaviour
                 {
                     if (tileGrid.GetTileAt(enemies[j].transform.position) == enemyTiles[i])
                     {
-                        enemies[j].GetComponent<Renderer>().material = enemyHighlightMat;
                     }
                 }
             }
