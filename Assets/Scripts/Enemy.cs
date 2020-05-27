@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
         tileGrid.GetTileAt(position).isWalkable = false;
     }
 
-    public bool UseTurn(PlayableCharacter[] playableCharacters, TileGrid tileGrid, Pathfinding pathfinding)
+    public void UseTurn(PlayableCharacter[] playableCharacters, TileGrid tileGrid, Pathfinding pathfinding)
     {
         List<PlayableCharacter> unitsInRange = pathfinding.FindUnitsInRange(tileGrid.GetTileFrom(this.gameObject), movement, attackRange, playableCharacters);
 
@@ -33,24 +33,11 @@ public class Enemy : MonoBehaviour
             Tile newTile = pathfinding.FindTileInRangeOfUnit(tileGrid.GetTileFrom(this.gameObject), tileGrid.GetTileFrom(unitsInRange[0].gameObject), attackRange);
 
             MoveTo(tileGrid.GetCenterPointOfTile(newTile), tileGrid);
-            return true;
         }
 
         else if (currentAttitude == Attitude.AggressiveSearch)
         {
 
         }
-
-        return false;
-    }
-
-    public PlayableCharacter FindAdjacentTarget(PlayableCharacter[] playableCharacters, TileGrid tileGrid, Pathfinding pathfinding)
-    {
-        List<PlayableCharacter> adj = pathfinding.FindUnitsInRange(tileGrid.GetTileFrom(this.gameObject), 0, 1, playableCharacters);
-        if (adj.Count > 0)
-        {
-            return adj[0];
-        }
-        return null;
     }
 }
