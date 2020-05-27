@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
 
 public class CombatController : MonoBehaviour
 {
@@ -15,13 +13,10 @@ public class CombatController : MonoBehaviour
     Pathfinding pathfinding;
     PlayableCharacter selectedUnit;
     public BattleManager myBattleManager;
-    public Button m_NextTurnButton;
 
     int turnCount;
     PlayableCharacter[] unitsToMove;
     Enemy[] enemies;
-    List<ActionQueueEntry> m_EnemyActionQueue = new List<ActionQueueEntry>();
-    bool m_ExecutingEndturn = false;
 
     bool isAttacking = false;
     List<Tile> enemyTiles;
@@ -203,14 +198,6 @@ public class CombatController : MonoBehaviour
 
     public void NextTurn()
     {
-        if (m_ExecutingEndturn == true)
-        {
-            return;
-        }
-
-        m_NextTurnButton.GetComponentInChildren<TMP_Text>().text = "Enemy Turn...";
-        m_NextTurnButton.image.color = Color.gray;
-
         unitsToMove = FindObjectsOfType<PlayableCharacter>();
 
         foreach (Enemy enemy in enemies)
@@ -218,17 +205,13 @@ public class CombatController : MonoBehaviour
             PlayableCharacter target = enemy.FindAdjacentTarget(unitsToMove, tileGrid, pathfinding);
             if (target != null)
             {
-                ActionQueueEntry temp = new ActionQueueEntry(enemy, target);
-                m_EnemyActionQueue.Add(temp);
+                StartCoroutine(myBattleManager.Init(enemy.GetComponent<Fighter>(), target.gameObject));
             }
             else
             {
-                ActionQueueEntry temp = new ActionQueueEntry(enemy, null);
-                m_EnemyActionQueue.Add(temp);
+                enemy.UseTurn(unitsToMove, tileGrid, pathfinding);
             }
         }
-
-        StartCoroutine(ExecuteEnemyActions());
         
         selectedUnit = null;
         turnCount++;
@@ -272,35 +255,5 @@ public class CombatController : MonoBehaviour
                 }
             }
         }
-    }
-
-    IEnumerator ExecuteEnemyActions()
-    {
-        m_ExecutingEndturn = true;
-        int queuedActionCount = m_EnemyActionQueue.Count;
-        //Wait 0.3 second for suspense! OooooOOoOOoOOOOOoooOO!!!
-        yield return new WaitForSeconds(0.3f);
-        for (int i = 0; i < queuedActionCount; i++) //Loop through all entries in the attack queue.
-        {
-            Debug.Log((i + 1) + ", " + m_EnemyActionQueue[0].GetEnemy().gameObject.name);
-            if (m_EnemyActionQueue[0].GetPCFighter() != null) //If a_PlayableCharacter is not null a battle is to take place
-            {
-                StartCoroutine(myBattleManager.Init(m_EnemyActionQueue[0]));
-                yield return new WaitForSeconds(5.3f); //Waiting 6 seconds for battle to finish and then move on
-            }
-            else //If a_PlayableCharacter is null the enemy will move
-            {
-                m_EnemyActionQueue[0].GetEnemy().UseTurn(unitsToMove, tileGrid, pathfinding);
-                yield return new WaitForSeconds(3.3f);
-            }
-            m_EnemyActionQueue.RemoveAt(0);
-        }
-
-        m_EnemyActionQueue.Clear();
-
-        m_ExecutingEndturn = false;
-        m_NextTurnButton.GetComponentInChildren<TMP_Text>().text = "Next Turn";
-        m_NextTurnButton.image.color = Color.white;
-        yield return 0;
     }
 }
