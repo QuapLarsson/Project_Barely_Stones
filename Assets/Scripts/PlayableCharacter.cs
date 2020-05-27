@@ -11,7 +11,11 @@ public class PlayableCharacter : MonoBehaviour
 
     void Awake()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent = gameObject.GetComponentInChildren<NavMeshAgent>();
+    }
+
+    private void Update()
+    {
     }
 
     public void MoveTo(Vector3 position, TileGrid tileGrid)
