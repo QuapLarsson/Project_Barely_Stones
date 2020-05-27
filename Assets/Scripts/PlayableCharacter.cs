@@ -7,11 +7,13 @@ public class PlayableCharacter : MonoBehaviour
 {
     NavMeshAgent navMeshAgent;
     public List<Tile> walkableTiles { get; private set; }
+    public Fighter fighter { get; private set; }
     int movement = 5; // TEMP
 
     void Awake()
     {
         navMeshAgent = gameObject.GetComponentInChildren<NavMeshAgent>();
+        fighter = gameObject.GetComponent<Fighter>();
     }
     
     private void Update()
