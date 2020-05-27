@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Animations/AnimationPacks/Generic/Upper.meta
+<<<<<<< HEAD:Assets/Animations/AnimationPacks/Generic/Upper.meta
+guid: 46d1bb6dde988f14e99a7cf96cd9dd1b
+=======
+guid: cb604fc004e364f4492ee8fc467a138c
+>>>>>>> master:Assets/Imported/Structures/Bridge/Materials.meta
+========
+guid: 892599f21fd7ec245a727aadedc30dae
+>>>>>>>> master:Assets/Materials/Terrain/Imported.meta
+=======
+guid: 46d1bb6dde988f14e99a7cf96cd9dd1b
+>>>>>>> master
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
