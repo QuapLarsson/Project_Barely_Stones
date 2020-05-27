@@ -63,15 +63,17 @@ namespace Barely.UserInput
                     else if (Input.GetMouseButton(_mousebutton))
                         if (!_executeCoroutine)
                             StartCoroutine(Hold());
+
+                    if (Input.GetMouseButtonDown(_mousebutton))
+                    {
+                        MouseAction();
+                        yield return new WaitForSeconds(0.2f);
+                    }
+                    else if (Input.GetMouseButton(_mousebutton))
+                        if (!_executeCoroutine)
+                            StartCoroutine(Hold());
                 }
-                if (Input.GetMouseButtonDown(_mousebutton))
-                {
-                    MouseAction();
-                    yield return new WaitForSeconds(0.2f);
-                }
-                else if (Input.GetMouseButton(_mousebutton))
-                    if (!_executeCoroutine)
-                        StartCoroutine(Hold());
+                
 
                 yield return new WaitForFixedUpdate();
             }
