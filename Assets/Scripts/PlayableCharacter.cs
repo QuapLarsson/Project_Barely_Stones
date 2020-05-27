@@ -7,13 +7,15 @@ public class PlayableCharacter : MonoBehaviour
 {
     NavMeshAgent navMeshAgent;
     public List<Tile> walkableTiles { get; private set; }
+    public Fighter fighter { get; private set; }
     int movement = 5; // TEMP
 
     void Awake()
     {
         navMeshAgent = gameObject.GetComponentInChildren<NavMeshAgent>();
+        fighter = gameObject.GetComponent<Fighter>();
     }
-
+    
     private void Update()
     {
     }
@@ -21,8 +23,10 @@ public class PlayableCharacter : MonoBehaviour
     public void MoveTo(Vector3 position, TileGrid tileGrid)
     {
         tileGrid.GetTileAt(transform.position).isWalkable = true;
+        tileGrid.GetTileAt(transform.position).myOccupyingCharacter = null;
         navMeshAgent.SetDestination(position);
         tileGrid.GetTileAt(position).isWalkable = false;
+        tileGrid.GetTileAt(position).myOccupyingCharacter = this;
     }
 
     public void CalculateWalkableTiles(Pathfinding pathfinding, TileGrid tileGrid)

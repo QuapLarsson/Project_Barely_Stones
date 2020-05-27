@@ -21,15 +21,24 @@ public class Fighter : MonoBehaviour
     float myAnimationTime = 1f;
     public Renderer myRenderer;
 
+    public bool animateAttack;
+    public bool animateDamage;
+    public bool animateDead;
+
     // Start is called before the first frame update
     void Start()
     {
     }
 
+    public void AttackEnemy(bool toggleAnimation)
+    {
+        animateAttack = toggleAnimation;
+    }
+
     public bool TakeDamage(int aAmount)
     {
+        animateDamage = true;
         myCurrentHP -= aAmount;
-        Debug.Log("Oof, " + aAmount + " damage");
         if (myCurrentHP <= 0)
         {
             return true;
@@ -42,6 +51,7 @@ public class Fighter : MonoBehaviour
 
     public void Die()
     {
+        animateDead = true;
         StartCoroutine(DeathFade());
     }
 
@@ -66,6 +76,7 @@ public class Fighter : MonoBehaviour
             yield return null;
         }
         Destroy(gameObject);
+        //animateDead = false;
     }
 
     // Update is called once per frame

@@ -103,6 +103,7 @@ public class Pathfinding
     {
         List<Tile> unsearchedTiles = new List<Tile>();
         List<Tile> validTiles = new List<Tile>();
+        validTiles.Add(startTile);
 
         //TODO: Make this better
         for (int x = startTile.x - pathLength; x <= startTile.x + pathLength; x++)

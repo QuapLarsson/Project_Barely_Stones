@@ -12,6 +12,9 @@ public class CameraControllerScript : MonoBehaviour
     public float maxAngle = 80;
     public float minAngle = 0;
 
+    public Vector3 m_minimumMoveLimit = new Vector3(-10, 0, -10);//the y coordinate doesn't matter here as it only effects horizontal movement
+    public Vector3 m_maximumMoveLimit = new Vector3(10, 0, 10);
+
     public float speedToFokus = .1f;//seconds to reach target
 
     public float scrollSensitivity = 1f;
@@ -85,6 +88,16 @@ public class CameraControllerScript : MonoBehaviour
             Vector3 currentPosition = transform.position;
             currentPosition.x += moveBy.x;
             currentPosition.z += moveBy.y;
+
+            if (currentPosition.x > m_maximumMoveLimit.x)//LimitCheck
+                currentPosition.x = m_maximumMoveLimit.x;
+            else if (currentPosition.x < m_minimumMoveLimit.x)
+                currentPosition.x = m_minimumMoveLimit.x;
+
+            if (currentPosition.z > m_maximumMoveLimit.z)
+                currentPosition.z = m_maximumMoveLimit.z;
+            else if (currentPosition.z < m_minimumMoveLimit.z)
+                currentPosition.z = m_minimumMoveLimit.z;
 
             transform.position = currentPosition;
         }

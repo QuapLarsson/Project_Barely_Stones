@@ -55,7 +55,15 @@ namespace Barely.UserInput
             {
                 if (PauseManager.pauseState == PauseManager.PauseState.Playing)
                 {
-                    
+                    if (Input.GetMouseButtonDown(_mousebutton))
+                    {
+                        MouseAction();
+                        yield return new WaitForSeconds(0.2f);
+                    }
+                    else if (Input.GetMouseButton(_mousebutton))
+                        if (!_executeCoroutine)
+                            StartCoroutine(Hold());
+
                     if (Input.GetMouseButtonDown(_mousebutton))
                     {
                         MouseAction();
@@ -65,6 +73,7 @@ namespace Barely.UserInput
                         if (!_executeCoroutine)
                             StartCoroutine(Hold());
                 }
+                
 
                 yield return new WaitForFixedUpdate();
             }
