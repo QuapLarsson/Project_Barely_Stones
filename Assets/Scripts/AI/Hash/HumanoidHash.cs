@@ -14,6 +14,7 @@ namespace Barely.AI
         {
 
             public static readonly int MoveStateHash = Animator.StringToHash("MoveState");
+            public static readonly int TaskStateHash = Animator.StringToHash("TaskState");
             public static readonly int LowerPartHash = Animator.StringToHash("LowerPart");
         }
         public class Layer

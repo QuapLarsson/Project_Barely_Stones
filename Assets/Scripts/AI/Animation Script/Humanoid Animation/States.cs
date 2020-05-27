@@ -12,6 +12,7 @@ namespace Barely.AI.Animation
         Init,
         Idle,
         Walk,
-        Run
+        Run,
+        Combat
     }
 }
