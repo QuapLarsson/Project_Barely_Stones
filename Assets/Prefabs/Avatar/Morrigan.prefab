@@ -1441,6 +1441,7 @@ GameObject:
   - component: {fileID: 5519114410833735125}
   - component: {fileID: 5519114410833735124}
   - component: {fileID: 6232905355159546757}
+  - component: {fileID: 5297819290120855430}
   m_Layer: 0
   m_Name: Morrigan
   m_TagString: Untagged
@@ -1562,6 +1563,21 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &5297819290120855430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4590918746425687301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b9f7476655f40408417f319d172c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceBonePath: Armature/DEF_hip/DEF_spine/DEF_spine.001/DEF_spine.002/DEF_neck/DEF_neck.001/DEF_head
+  facePrefab: {fileID: 6906853184110885854, guid: dad4cb7afd6bba54b82080a45eac2903,
+    type: 3}
 --- !u!1 &4662636644253282212
 GameObject:
   m_ObjectHideFlags: 0
@@ -3255,7 +3271,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d1a6f98de11d97044b1e442336a6d928, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
