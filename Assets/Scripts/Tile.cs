@@ -2,6 +2,7 @@
 {
     public TileGrid grid;
     public int x, y;
+    public PlayableCharacter myOccupyingCharacter;
 
     public bool isWalkable = true;
     public Tile myParentTile = null;
