@@ -220,8 +220,8 @@ public class BattleManager : MonoBehaviour
             Destroy(m_EnemyStandin);
             a_InactiveFighter.Die();
         }
-        a_InactiveFighter.animateDamage = false;
-        a_ActiveFighter.AttackEnemy(false);
+        //a_InactiveFighter.animateDamage = false;
+        //a_ActiveFighter.AttackEnemy(false);
         return;
     }
 

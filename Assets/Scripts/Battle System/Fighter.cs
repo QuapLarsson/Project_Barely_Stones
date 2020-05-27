@@ -76,7 +76,7 @@ public class Fighter : MonoBehaviour
             yield return null;
         }
         Destroy(gameObject);
-        animateDead = false;
+        //animateDead = false;
     }
 
     // Update is called once per frame
