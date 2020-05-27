@@ -73,7 +73,7 @@ Camera:
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!81 &7683353578541317150
@@ -150,7 +150,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
+  antialiasing: 3
   SMAAQuality: 2
   dithering: 0
   stopNaNs: 0
@@ -236,7 +236,10 @@ MonoBehaviour:
   lowestPosition: {x: 0, y: 0.5, z: -1}
   maxAngle: 80
   minAngle: 0
+  m_minimumMoveLimit: {x: -10, y: 0, z: -10}
+  m_maximumMoveLimit: {x: 10, y: 0, z: 10}
   speedToFokus: 0.1
   scrollSensitivity: 1
   moveSensitivityX: 0.3
   moveSensitivityY: 0.3
+  m_cameraIsMoving: 0
