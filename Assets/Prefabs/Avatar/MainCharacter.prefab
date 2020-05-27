@@ -2276,6 +2276,7 @@ GameObject:
   - component: {fileID: 4498705354043860288}
   - component: {fileID: 4498705354043860291}
   - component: {fileID: 4498705354043860290}
+  - component: {fileID: 572243894141195399}
   m_Layer: 0
   m_Name: MainCharacter
   m_TagString: Untagged
@@ -2382,6 +2383,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &572243894141195399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5570796304230466695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b9f7476655f40408417f319d172c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceBonePath: Armature/DEF_hip/DEF_spine/DEF_spine.001/DEF_spine.002/DEF_neck/DEF_neck.001/DEF_head
+  facePrefab: {fileID: 2698005435602222583, guid: 19baf4946f7d4634f915b71c821d1089,
+    type: 3}
 --- !u!1 &5686357021246775251
 GameObject:
   m_ObjectHideFlags: 0

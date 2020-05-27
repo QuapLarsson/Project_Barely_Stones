@@ -2210,6 +2210,7 @@ GameObject:
   - component: {fileID: 6066636188802198619}
   - component: {fileID: 4403728450183434669}
   - component: {fileID: 6102904291596228263}
+  - component: {fileID: -4786928462904709474}
   m_Layer: 0
   m_Name: Jenny
   m_TagString: Untagged
@@ -2316,6 +2317,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 256a116703cb6d34d90d1278ea37e088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4786928462904709474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545950107403826054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b9f7476655f40408417f319d172c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceBonePath: Armature/DEF_hip/DEF_spine/DEF_spine.001/DEF_spine.002/DEF_neck/DEF_neck.001/DEF_head
+  facePrefab: {fileID: 470951141461160266, guid: 516bb14eee35b334aa77d2a8bf993799,
+    type: 3}
 --- !u!1 &2565589094508097236
 GameObject:
   m_ObjectHideFlags: 0
