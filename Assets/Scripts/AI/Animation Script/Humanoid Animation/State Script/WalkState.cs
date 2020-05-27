@@ -12,7 +12,13 @@ namespace Barely.AI.Animation
 
             while (true)
             {
-                if (_movement.FSM.State == Movement.States.Idle)
+                if (_fighter != null && _fighter.animateAttack)
+                {
+                    _fighter.animateAttack = false;
+                    FSM.ChangeState(States.Combat);
+                    yield break;
+                }
+                else if (_movement.FSM.State == Movement.States.Idle)
                 {
                     FSM.ChangeState(States.Idle);
                     yield break;
