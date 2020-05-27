@@ -1447,7 +1447,6 @@ GameObject:
   - component: {fileID: 5697823009698984198}
   - component: {fileID: 5697823009698984193}
   - component: {fileID: 8210115375995120617}
-  - component: {fileID: 6705471075444371868}
   m_Layer: 0
   m_Name: Steinn
   m_TagString: Untagged
@@ -1568,21 +1567,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &6705471075444371868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4337906251302359678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42b9f7476655f40408417f319d172c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faceBonePath: Armature/DEF_hip/DEF_spine/DEF_spine.001/DEF_spine.002/DEF_neck/DEF_neck.001/DEF_head
-  facePrefab: {fileID: 2716807062484828196, guid: ec2e23361a3d5d743bfc77b986d11037,
-    type: 3}
 --- !u!1 &4506723934927501203
 GameObject:
   m_ObjectHideFlags: 0
