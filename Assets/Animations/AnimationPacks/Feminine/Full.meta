@@ -1,9 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Animations/AnimationPacks/Feminine/Full.meta
 <<<<<<< HEAD:Assets/Animations/AnimationPacks/Feminine/Full.meta
 guid: 74154cc2ea9946a4489f2ea472e0e060
 =======
 guid: cab7854256b116a42a3694159b2c583c
 >>>>>>> master:Assets/Imported/Plants/bamboo/Materials.meta
+========
+guid: 2c0fb788af0d4194195c43837dcfe2f7
+>>>>>>>> master:Assets/Gizmos.meta
+=======
+guid: 74154cc2ea9946a4489f2ea472e0e060
+>>>>>>> master
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

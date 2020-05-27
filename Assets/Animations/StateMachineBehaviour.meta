@@ -1,9 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Assets/Animations/StateMachineBehaviour.meta
 <<<<<<< HEAD:Assets/Animations/StateMachineBehaviour.meta
 guid: 9f39187daf0bbc54d83bf91d44d9aeaa
 =======
 guid: 58663177d38e9cf4dbf7425438f7f32e
 >>>>>>> master:Assets/Models/stones/more rocks/rock1/Materials.meta
+========
+guid: ee5dddf454acb834abc544e04f08cfc6
+>>>>>>>> master:Assets/Prefabs/Avatar/Humanoid/Avatar Mask.meta
+=======
+guid: 9f39187daf0bbc54d83bf91d44d9aeaa
+>>>>>>> master
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
