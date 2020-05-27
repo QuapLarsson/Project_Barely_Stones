@@ -125,10 +125,10 @@ public class BattleManager : MonoBehaviour
         float damageRate = 1f;
         int attackerTotalPower;
         int defenderTotalDefence;
-
+        a_ActiveFighter.AttackEnemy(true);
         attackerTotalPower = a_ActiveFighter.myPower;
         defenderTotalDefence = a_InactiveFighter.myDefence;
-
+        
         {
             //Adjust damage rate based on damage and armour types used
             /*switch (a_ActiveFighter.myWeapon.myDamageType)
@@ -220,7 +220,7 @@ public class BattleManager : MonoBehaviour
             Destroy(m_EnemyStandin);
             a_InactiveFighter.Die();
         }
-
+        a_InactiveFighter.animateDamage = false;
         return;
     }
 
