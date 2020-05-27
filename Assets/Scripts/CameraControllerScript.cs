@@ -12,6 +12,9 @@ public class CameraControllerScript : MonoBehaviour
     public float maxAngle = 80;
     public float minAngle = 0;
 
+    public Vector3 m_minimumMoveLimit = new Vector3(-10, 0, -10);//the y coordinate doesn't matter here as it only effects horizontal movement
+    public Vector3 m_maximumMoveLimit = new Vector3(10, 0, 10);
+
     public float speedToFokus = .1f;//seconds to reach target
 
     public float scrollSensitivity = 1f;
@@ -21,6 +24,9 @@ public class CameraControllerScript : MonoBehaviour
 
     Transform ExternalFokus;//An external gameobject that the camera is fokusing on
     Transform CameraTransform;
+    Vector3 rememberedCameraPos;
+    Quaternion rememberedCameraRot;
+    public bool m_cameraIsMoving = false;
 
     private float cameraRailPosition = .5f;//is between 1f and 0f used to calculate angle and position of cameratransform
 
@@ -83,6 +89,16 @@ public class CameraControllerScript : MonoBehaviour
             currentPosition.x += moveBy.x;
             currentPosition.z += moveBy.y;
 
+            if (currentPosition.x > m_maximumMoveLimit.x)//LimitCheck
+                currentPosition.x = m_maximumMoveLimit.x;
+            else if (currentPosition.x < m_minimumMoveLimit.x)
+                currentPosition.x = m_minimumMoveLimit.x;
+
+            if (currentPosition.z > m_maximumMoveLimit.z)
+                currentPosition.z = m_maximumMoveLimit.z;
+            else if (currentPosition.z < m_minimumMoveLimit.z)
+                currentPosition.z = m_minimumMoveLimit.z;
+
             transform.position = currentPosition;
         }
 
@@ -114,5 +130,74 @@ public class CameraControllerScript : MonoBehaviour
         Vector3 RotationVector = CameraTransform.rotation.eulerAngles;
         RotationVector.x = minAngle + (maxAngle * cameraRailPosition);
         CameraTransform.rotation = Quaternion.Euler(RotationVector);
+    }
+
+    public void ShiftCameraToBattle(Transform a_FirstFighterPos, Transform a_SecondFighterPos)
+    {
+        rememberedCameraPos = transform.position;
+        rememberedCameraRot = transform.rotation;
+
+        Vector3 averagePos = Vector3.zero;
+        averagePos.x = (a_FirstFighterPos.position.x + a_SecondFighterPos.position.x) / 2;
+        averagePos.y = (a_FirstFighterPos.position.y + a_SecondFighterPos.position.y) / 2;
+        averagePos.z = (a_FirstFighterPos.position.z + a_SecondFighterPos.position.z) / 2;
+
+        StartCoroutine(LerpFromTo(transform.position, averagePos, a_FirstFighterPos, 1f));
+    }
+
+    public void RestoreCamera()
+    {
+        StartCoroutine(ReturnLerp(transform.position, rememberedCameraPos, rememberedCameraRot, 1f));
+    }
+
+    IEnumerator LerpFromTo(Vector3 pos1, Vector3 pos2, Transform a_AttackerTransform, float duration)
+    {
+        m_cameraIsMoving = true;
+        Transform temp = transform;
+        Vector3 cameraRight = a_AttackerTransform.transform.right;
+        //Get right direction in world space coord
+        cameraRight = transform.InverseTransformDirection(cameraRight);
+        //Remove up/down rotation
+        cameraRight.y = 0;
+        cameraRight.Normalize();
+        Vector3 target = pos2 + (cameraRight * -2);
+        temp.position = target;
+        temp.LookAt(pos2, Vector3.up);
+        StartCoroutine(RotateFromTo(transform.rotation, temp.rotation, duration));
+
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            transform.position = Vector3.Lerp(pos1, target, t / duration);
+            yield return 0;
+        }
+        transform.position = target;
+        m_cameraIsMoving = false;
+        yield return new WaitForSeconds(1.0f);
+    }
+
+    IEnumerator ReturnLerp(Vector3 pos1, Vector3 returnPos, Quaternion returnRot, float duration)
+    {
+        m_cameraIsMoving = true;
+        StartCoroutine(RotateFromTo(transform.rotation, returnRot, duration));
+
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            transform.position = Vector3.Lerp(pos1, returnPos, t / duration);
+            yield return 0;
+        }
+        transform.position = transform.position;
+        m_cameraIsMoving = false;
+    }
+
+    IEnumerator RotateFromTo(Quaternion rot1, Quaternion rot2, float duration)
+    {
+        transform.rotation = Quaternion.RotateTowards(rot1, rot2, 1f * Time.deltaTime);
+        /*for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            //transform.rotation = Quaternion.Lerp(rot1, rot2, t / duration);
+            yield return 0;
+        }*/
+        yield return 0;
+        transform.rotation = rot2;
     }
 }

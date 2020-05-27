@@ -22,8 +22,7 @@ public class Pathfinding
             {
                 if (y < 0 || y > currentTileGrid.tileArray.GetLength(1) - 1) continue;
 
-                if (x + y >= unitTile.x + unitTile.y - attackRange &&
-                    x + y <= unitTile.x + unitTile.y + attackRange &&
+                if (Mathf.Abs(x - unitTile.x) + Mathf.Abs(y - unitTile.y) <= attackRange &&
                     currentTileGrid.tileArray[x, y].isWalkable)
                 {
                     List<Tile> possiblePath = FindPath(startTile, currentTileGrid.tileArray[x, y]);
@@ -66,8 +65,7 @@ public class Pathfinding
                 {
                     if (y < 0 || y > currentTileGrid.tileArray.GetLength(1) - 1) continue;
 
-                    if (x + y >= moveableTiles[i].x + moveableTiles[i].y - attackRange && 
-                        x + y <= moveableTiles[i].x + moveableTiles[i].y + attackRange && 
+                    if (Mathf.Abs(x - moveableTiles[i].x) + Mathf.Abs(y - moveableTiles[i].y) <= attackRange && 
                         currentTileGrid.tileArray[x, y] != startTile)
                     {
                         foreach (Tile unitTile in allTilesWithUnits.ToArray())
@@ -103,6 +101,7 @@ public class Pathfinding
     {
         List<Tile> unsearchedTiles = new List<Tile>();
         List<Tile> validTiles = new List<Tile>();
+        validTiles.Add(startTile);
 
         //TODO: Make this better
         for (int x = startTile.x - pathLength; x <= startTile.x + pathLength; x++)

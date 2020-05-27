@@ -5,28 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/samplescene.unity
-    guid: cbfe36cfddfde964d9dfce63a355d5dd
-  - enabled: 0
-    path: Assets/Scenes/workscenes/eric_scene.unity
-    guid: 0ceed02a007b1ab4c83d29ebeb12e331
-  - enabled: 0
-    path: Assets/Scenes/workscenes/joakim_scene.unity
-    guid: ce0b5b5bab9ede041b10cc711f3f78b9
-  - enabled: 0
-    path: Assets/Scenes/workscenes/oskar_scene.unity
-    guid: 118dad3a5b54a274bb5eb16125b12a2e
-  - enabled: 0
-    path: Assets/Scenes/testscenes/dialoguetest.unity
-    guid: b82b7de7ecef9d94eb02ccf913f07910
-  - enabled: 0
-    path: Assets/Scenes/workscenes/unified_scene.unity
-    guid: 49f5d9a5c1a54ad4f91c59f8e3f699bb
-  - enabled: 0
-    path: Assets/Scenes/workscenes/eric_dialogue_scene.unity
-    guid: 5d36adfea9244fa4bb9b6d5697900347
+  - enabled: 1
+    path: Assets/Scenes/workscenes/title_scene.unity
+    guid: 1638ccbe318950447be84445eaebce15
   - enabled: 1
     path: Assets/Scenes/workscenes/map_scene.unity
     guid: b364789aaa278df41a87363b2dc447c2
+  - enabled: 1
+    path: Assets/Scenes/workscenes/unified_scene.unity
+    guid: 49f5d9a5c1a54ad4f91c59f8e3f699bb
   m_configObjects: {}
