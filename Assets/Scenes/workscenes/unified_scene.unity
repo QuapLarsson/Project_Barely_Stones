@@ -714,6 +714,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821506355840124979, guid: a67cabcd930b3684faeed51a49f71ccd,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 94ee43253ecf5e7418c49d60a51cc97a, type: 2}
     - target: {fileID: 3654668273384162378, guid: a67cabcd930b3684faeed51a49f71ccd,
         type: 3}
       propertyPath: m_Radius
@@ -2370,6 +2375,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821506355840124979, guid: a67cabcd930b3684faeed51a49f71ccd,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 94ee43253ecf5e7418c49d60a51cc97a, type: 2}
     - target: {fileID: 3654668273384162378, guid: a67cabcd930b3684faeed51a49f71ccd,
         type: 3}
       propertyPath: m_Radius
@@ -2629,6 +2639,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821506355840124979, guid: a67cabcd930b3684faeed51a49f71ccd,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 94ee43253ecf5e7418c49d60a51cc97a, type: 2}
     - target: {fileID: 3654668273384162378, guid: a67cabcd930b3684faeed51a49f71ccd,
         type: 3}
       propertyPath: m_Radius
@@ -3112,6 +3127,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821506355840124979, guid: a67cabcd930b3684faeed51a49f71ccd,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 94ee43253ecf5e7418c49d60a51cc97a, type: 2}
     - target: {fileID: 3654668273384162378, guid: a67cabcd930b3684faeed51a49f71ccd,
         type: 3}
       propertyPath: m_Radius
