@@ -1,0 +1,183 @@
+fileFormatVersion: 2
+guid: f4411a47eb7d7f247ab63d06b0ef43f6
+ModelImporter:
+  serializedVersion: 19300
+  internalIDToNameTable:
+  - first:
+      74: -7931270049913426998
+    second: Armature|Full_Masculine_Idle01
+  - first:
+      74: -1053898728839227482
+    second: Armature|Full_Masculine_Run01
+  - first:
+      74: 5425426616481787687
+    second: Armature|Full_Masculine_Sit01
+  - first:
+      74: -7982985551475485982
+    second: Armature|Full_Masculine_Walk01
+  - first:
+      74: 5552716762302957572
+    second: Armature|Full_Valkyrie_Attack01
+  - first:
+      74: 7754539119265736312
+    second: Armature|Full_Valkyrie_Idle01
+  - first:
+      74: 4772810077787051660
+    second: Armature|Full_Valkyrie_Idle02
+  - first:
+      74: -4441868095902551818
+    second: Armature|Full_Valkyrie_Run01
+  - first:
+      74: 5064021417460221512
+    second: Armature|Full_Valkyrie_Walk01
+  - first:
+      74: 56764358444104815
+    second: Armature|Lower_Feminine_Run01
+  - first:
+      74: 151962556667631185
+    second: Armature|Lower_Feminine_Walk01
+  - first:
+      74: -8207280192603512639
+    second: Armature|Lower_Generic_Idle01
+  - first:
+      74: -5725991664258311728
+    second: Armature|Lower_Masculine_Run01
+  - first:
+      74: 2627472523658251325
+    second: Armature|Lower_Masculine_Walk01
+  - first:
+      74: 8639492247509282585
+    second: Armature|Tail_Generic_Idle01
+  - first:
+      74: -4912032339272724616
+    second: Armature|Tail_Generic_Idle02
+  - first:
+      74: -7133080434031063151
+    second: Armature|Tail_Generic_Run01
+  - first:
+      74: -482344265679526682
+    second: Armature|Tail_Generic_Walk01
+  - first:
+      74: -8544050428477473210
+    second: Armature|Upper_Feminine_Idle01
+  - first:
+      74: -8002645933303812347
+    second: Armature|Upper_Feminine_Idle02
+  - first:
+      74: -1296928910915706652
+    second: Armature|Upper_Feminine_Idle04
+  - first:
+      74: 7914490152052236471
+    second: Armature|Upper_Feminine_Run01
+  - first:
+      74: -560218170831135577
+    second: Armature|Upper_Feminine_Walk01
+  - first:
+      74: -1622373135025411825
+    second: Armature|Upper_Masculine_Idle01
+  - first:
+      74: 4506733074801956000
+    second: Armature|Upper_Masculine_Idle02
+  - first:
+      74: 2784654517566300898
+    second: Armature|Upper_Masculine_Idle03
+  - first:
+      74: -7013448994664433182
+    second: Armature|Upper_Masculine_Idle04
+  - first:
+      74: -7757061329562173395
+    second: Armature|Upper_Masculine_Run01
+  - first:
+      74: 5533584122037335521
+    second: Armature|Upper_Masculine_Walk01
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: DEF_hip
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
