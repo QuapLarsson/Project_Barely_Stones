@@ -32,7 +32,9 @@ public class Fighter : MonoBehaviour
 
     public void AttackEnemy(bool toggleAnimation)
     {
+        Debug.Log("Start Animate Attack: "+ animateAttack);
         animateAttack = toggleAnimation;
+        Debug.Log("State: " + animateAttack);
     }
 
     public bool TakeDamage(int aAmount)
