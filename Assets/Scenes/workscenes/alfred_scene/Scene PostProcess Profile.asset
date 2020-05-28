@@ -35,14 +35,14 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 2
   luminanceSource:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   fixedExposure:
     m_OverrideState: 0
     m_Value: 0
   compensation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 2.21
   limitMin:
     m_OverrideState: 0
     m_Value: -10
@@ -55,18 +55,18 @@ MonoBehaviour:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: -10
-        value: -10
+        time: -9.830177
+        value: 0.2008667
         inSlope: 0
-        outSlope: 1
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 20
-        value: 20
-        inSlope: 1
+        time: 8.89357
+        value: 8.740753
+        inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0

@@ -8,13 +8,13 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: male_avatar_texture
-  m_Shader: {fileID: -6465566751694194690, guid: 4aa8d981e7e2c794d8b3a08602d0790b,
+  m_Shader: {fileID: -6465566751694194690, guid: 2d8d8dec1a714a246b27b5627efc082c,
     type: 3}
-  m_ShaderKeywords: _EMISSIVE_COLOR_MAP _NORMALMAP_TANGENT_SPACE
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     MotionVector: User
   disabledShaderPasses:
@@ -27,6 +27,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_A22350A:
+        m_Texture: {fileID: 2800000, guid: f0d31fb2708dd9946907a2eb6c385f25, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_DCA39F93:
         m_Texture: {fileID: 2800000, guid: f0d31fb2708dd9946907a2eb6c385f25, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -115,6 +119,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_72DD1C1E: 1
+    - Vector1_B637B013: 1
+    - Vector1_FE715F22: 1
     - _AORemapMax: 1
     - _AORemapMin: 0
     - _ATDistance: 1
@@ -193,6 +200,8 @@ Material:
     - _PPDPrimitiveWidth: 1
     - _ReceivesSSR: 1
     - _RefractionModel: 0
+    - _RenderQueueType: 1
+    - _RequireSplitLighting: 0
     - _SSRefractionProjectionModel: 0
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
@@ -235,6 +244,10 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
+    - Vector2_2E766661: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_427DE0FB: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_9CC20E30: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_EDA9A6C2: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
