@@ -8,13 +8,15 @@ namespace Barely.AI.Animation
     {
         protected IEnumerator Combat_Enter()
         {
-            _animator.SetEnum(HumanoidHash.Parameter.MoveStateHash, _movement.FSM.State);
+            _animator.SetEnum(HumanoidHash.Parameter.TaskStateHash, 1);
 
             while (true)
             {
-                if (_movement.FSM.State == Movement.States.Walk)
+                if (_animator.GetCurrentAnimatorStateInfo(HumanoidHash.Layer.BaseLayerHash).IsTag("Attack"))
                 {
+                    _animator.SetInteger(HumanoidHash.Parameter.TaskStateHash, 0);
                     FSM.ChangeState(States.Walk);
+
                     yield break;
                 }
 
