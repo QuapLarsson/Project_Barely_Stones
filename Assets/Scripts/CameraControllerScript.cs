@@ -32,6 +32,7 @@ public class CameraControllerScript : MonoBehaviour
     Quaternion rememberedCameraRot;
     public bool m_cameraIsMoving = false;
 
+    [Range(0,1)]
     public float m_cameraRailStartPosition = .5f;
     private float cameraRailPosition;//is between 1f and 0f used to calculate angle and position of cameratransform
 
