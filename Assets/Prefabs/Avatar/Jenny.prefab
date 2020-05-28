@@ -2211,6 +2211,9 @@ GameObject:
   - component: {fileID: 4403728450183434669}
   - component: {fileID: 6102904291596228263}
   - component: {fileID: -4786928462904709474}
+  - component: {fileID: 686393566}
+  - component: {fileID: 686393558}
+  - component: {fileID: 686393567}
   m_Layer: 0
   m_Name: Jenny
   m_TagString: Untagged
@@ -2264,7 +2267,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2545950107403826054}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_Speed: 1
   m_Acceleration: 10
   avoidancePriority: 50
@@ -2312,7 +2315,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2545950107403826054}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 256a116703cb6d34d90d1278ea37e088, type: 3}
   m_Name: 
@@ -2332,6 +2335,57 @@ MonoBehaviour:
   faceBonePath: Armature/DEF_hip/DEF_spine/DEF_spine.001/DEF_spine.002/DEF_neck/DEF_neck.001/DEF_head
   facePrefab: {fileID: 470951141461160266, guid: 516bb14eee35b334aa77d2a8bf993799,
     type: 3}
+--- !u!136 &686393566
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545950107403826054}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &686393558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545950107403826054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1e3dcdd6c096ab45bd49455173b70be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myExperience: 0
+  myLevel: 1
+  myPower: 10
+  myDefence: 10
+  myMovement: 4
+  myLuck: 10
+  myMaxHP: 100
+  myCurrentHP: 100
+  myGuts: 0
+  myRenderer: {fileID: 0}
+  animateAttack: 0
+  animateDamage: 0
+  animateDead: 0
+--- !u!114 &686393567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545950107403826054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32be66ce62f9e4746b1b9a3f0f00d5eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2565589094508097236
 GameObject:
   m_ObjectHideFlags: 0

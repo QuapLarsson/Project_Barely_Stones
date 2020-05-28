@@ -1039,6 +1039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2501253690809844100}
   - component: {fileID: 1507972647652029332}
+  - component: {fileID: 1214421750788029552}
   m_Layer: 14
   m_Name: Jenny_v1.0
   m_TagString: Untagged
@@ -1083,6 +1084,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1214421750788029552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507972647652029335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42b9f7476655f40408417f319d172c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceBonePath: Armature/DEF_hip/DEF_spine/DEF_spine.001/DEF_spine.002/DEF_neck/DEF_neck.001/DEF_head
+  facePrefab: {fileID: 470951141461160266, guid: 516bb14eee35b334aa77d2a8bf993799,
+    type: 3}
 --- !u!1 &1609239068984841850
 GameObject:
   m_ObjectHideFlags: 0
@@ -3862,7 +3878,6 @@ GameObject:
   - component: {fileID: 4336165299300076811}
   - component: {fileID: 7479502838832774845}
   - component: {fileID: 1064554432347795372}
-  - component: {fileID: 5243627662461607096}
   m_Layer: 14
   m_Name: NPC Jenny
   m_TagString: Untagged
@@ -4001,21 +4016,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &5243627662461607096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4336165299300076810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42b9f7476655f40408417f319d172c3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faceBonePath: Armature/DEF_hip/DEF_spine/DEF_spine.001/DEF_spine.002/DEF_neck/DEF_neck.001/DEF_head
-  facePrefab: {fileID: 470951141461160266, guid: 516bb14eee35b334aa77d2a8bf993799,
-    type: 3}
 --- !u!1 &4362770115754991704
 GameObject:
   m_ObjectHideFlags: 0
