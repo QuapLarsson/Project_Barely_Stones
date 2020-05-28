@@ -1216,6 +1216,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ad573422db9f18429eac34244f4f8cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &731383907 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2063470662501663662, guid: 908fe97355777db43a53250f429b60c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 8539527413334139263}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &735565063 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5570796304230466695, guid: ec22d9178c76bdc488b5920672c0b45d,
@@ -1699,6 +1705,11 @@ PrefabInstance:
       propertyPath: m_NextTurnButton
       value: 
       objectReference: {fileID: 526784969}
+    - target: {fileID: 2598654586438382820, guid: 398ac18c143d1c342ac341c246ff4b9f,
+        type: 3}
+      propertyPath: arrow
+      value: 
+      objectReference: {fileID: 731383907}
     - target: {fileID: 2598654586438382822, guid: 398ac18c143d1c342ac341c246ff4b9f,
         type: 3}
       propertyPath: m_Name
@@ -3282,7 +3293,7 @@ PrefabInstance:
     - target: {fileID: 5570796304230466695, guid: ec22d9178c76bdc488b5920672c0b45d,
         type: 3}
       propertyPath: m_Name
-      value: MainCharacter
+      value: MainCharacterCombat
       objectReference: {fileID: 0}
     - target: {fileID: 5570796304230466695, guid: ec22d9178c76bdc488b5920672c0b45d,
         type: 3}

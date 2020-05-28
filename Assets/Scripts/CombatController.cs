@@ -7,6 +7,8 @@ using TMPro;
 
 public class CombatController : MonoBehaviour
 {
+    [Header("Setup")]
+    public Transform arrow;
     TileGrid tileGrid;
     [SerializeField] int gridWidth;
     [SerializeField] int gridHeight;
@@ -34,7 +36,7 @@ public class CombatController : MonoBehaviour
     Ray mouseRay;
     RaycastHit rayHit;
 
-
+    private Vector3 arrowOffset = new Vector3(0, 2, 0);
     void Awake()
     {
         enemies = FindObjectsOfType<Enemy>();
@@ -62,6 +64,15 @@ public class CombatController : MonoBehaviour
 
     void Update()
     {
+        if (selectedUnit != null)
+        {
+            arrow.position = selectedUnit.gameObject.transform.position + arrowOffset;
+        }
+        else
+        {
+            arrow.position = new Vector3(-100, -100, -100);
+        }
+
         if (m_ExecutingEndturn == false)
         {
             mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
