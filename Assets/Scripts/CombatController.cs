@@ -62,7 +62,15 @@ public class CombatController : MonoBehaviour
 
     void Update()
     {
-        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (m_ExecutingEndturn == false)
+        {
+            mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
+        else
+        {
+            mouseRay.direction = Vector3.zero;
+            mouseRay.origin = Vector3.zero;
+        }
 
         if (Physics.Raycast(mouseRay, out rayHit, float.PositiveInfinity) && !EventSystem.current.IsPointerOverGameObject())
         {
