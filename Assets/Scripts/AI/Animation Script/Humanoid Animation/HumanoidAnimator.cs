@@ -45,30 +45,28 @@ namespace Barely.AI.Animation
             _movement = GetComponent<NavMovement>();
             _fighter = GetComponent<Fighter>();
 
-            FSM = StateMachine<States>.Initialize(this, States.Init);
-
             if (_animator.HasLayer(HumanoidHash.Layer.LowerLayerHash))
                 _animator.SetLayerWeight(HumanoidHash.Layer.LowerLayerHash, LowerPartWeight);
 
-            StartCoroutine(GetTag());
+            StartCoroutine(IfFullAnimation());
+
+            FSM = StateMachine<States>.Initialize(this, States.Init);
         }
 
-        protected IEnumerator GetTag()
+        /// <summary>
+        /// Look if the animation is full animation based on the state tag.
+        /// </summary>
+        /// <returns></returns>
+        protected IEnumerator IfFullAnimation()
         {
             bool cache = false;
-            int delay = 0;
 
             while (true)
             {
                 bool transition = _animator.IsInTransition(HumanoidHash.Layer.BaseLayerHash);
 
                 if (transition)
-                {
                     cache = true;
-                    delay = 0;
-                }
-                else if (delay <= 1) // Because Unity SUCKS!
-                    delay++;
                 else if (cache && !transition)
                 {
                     _newState = true;
@@ -76,10 +74,10 @@ namespace Barely.AI.Animation
 
                     if (_animator.HasParameter(HumanoidHash.Parameter.LowerPartHash))
                     {
-                        if (_animator.GetCurrentAnimatorStateInfo(HumanoidHash.Layer.BaseLayerHash).IsTag("Upper"))
-                            _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, true);
-                        else
+                        if (_animator.GetCurrentAnimatorStateInfo(HumanoidHash.Layer.BaseLayerHash).IsTag("Full"))
                             _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, false);
+                        else
+                            _animator.SetBool(HumanoidHash.Parameter.LowerPartHash, true);
                     }
                 }
                 else
