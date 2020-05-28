@@ -18,9 +18,11 @@ namespace Barely.AI.Animation
 
             while (true)
             {
-                if (_fighter != null && _fighter.animateAttack)
+                if ((_fighter != null && _fighter.animateAttack) || _animator.GetInteger(HumanoidHash.Parameter.TaskStateHash) > 0)
                 {
-                    _fighter.animateAttack = false;
+                    if (_fighter != null)
+                        _fighter.animateAttack = false;
+
                     FSM.ChangeState(States.Combat);
                     yield break;
                 }
