@@ -113,7 +113,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: bf6dff9c8dc20254c84a581c0d7e2e46, type: 2}
+  sharedProfile: {fileID: 11400000, guid: ad9c910a4d660134eb1f8ceaa2f892ca, type: 2}
 --- !u!1 &6373976345090544226
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 5f472d148a3b2f047a2886b9c6ca0961, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 52d3bce5aeb0f494080f9cf746908182, type: 2}
 --- !u!1 &6373976346438803502
 GameObject:
   m_ObjectHideFlags: 0

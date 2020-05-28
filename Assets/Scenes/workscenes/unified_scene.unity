@@ -3775,6 +3775,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6373976345018693765, guid: 491047a2347bdab42945d0ae65afe879,
+        type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: ad9c910a4d660134eb1f8ceaa2f892ca,
+        type: 2}
+    - target: {fileID: 6373976345090544227, guid: 491047a2347bdab42945d0ae65afe879,
+        type: 3}
+      propertyPath: sharedProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: 52d3bce5aeb0f494080f9cf746908182,
+        type: 2}
+    - target: {fileID: 6373976346438803497, guid: 491047a2347bdab42945d0ae65afe879,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 8000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373976346438803503, guid: 491047a2347bdab42945d0ae65afe879,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 8000
+      objectReference: {fileID: 0}
     - target: {fileID: 8853776635474867735, guid: 491047a2347bdab42945d0ae65afe879,
         type: 3}
       propertyPath: m_Name
