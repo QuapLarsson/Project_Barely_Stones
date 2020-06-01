@@ -39,6 +39,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_8275AFCA:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - Texture2D_A22350A:
         m_Texture: {fileID: 2800000, guid: 1f3e191273c08444a8a697313d43aaf9, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -133,6 +137,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_72DD1C1E: 1
+    - Vector1_7F974F6D: 1
     - Vector1_B637B013: 1
     - Vector1_FE715F22: 1
     - _AORemapMax: 1
