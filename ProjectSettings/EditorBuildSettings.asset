@@ -5,16 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/workscenes/title_scene.unity
     guid: 1638ccbe318950447be84445eaebce15
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/workscenes/map_scene.unity
     guid: b364789aaa278df41a87363b2dc447c2
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/workscenes/unified_scene.unity
     guid: 49f5d9a5c1a54ad4f91c59f8e3f699bb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/workscenes/exit_shot_scene.unity
     guid: 7c0314d582f6f3f4e92b48310d5d3336
   m_configObjects: {}
